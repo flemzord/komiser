@@ -16,33 +16,33 @@ import 'chartist-plugin-tooltips';
   styleUrls: ['./aws.component.css']
 })
 export class AwsDataAndAIComponent implements OnInit, OnDestroy {
-  private sqsMessagesChart:any;
+  private sqsMessagesChart: any;
 
-  public sqsQueues: number = 0;
-  public numberOfMessagesSentToday: number = 0;
-  public numberOfMessagesDeletedToday: number = 0;
-  public snsTopics: number = 0;
-  public activemqBrokers: number = 0; 
-  public kinesisStreams: number = 0;
-  public kinesisShards: number = 0;
-  public glueJobs: number = 0;
-  public glueCrawlers: number = 0;
-  public dataPipelines: number = 0;
-  public esDomains: number = 0;
-  public swfDomains: number = 0;
+  public sqsQueues = 0;
+  public numberOfMessagesSentToday = 0;
+  public numberOfMessagesDeletedToday = 0;
+  public snsTopics = 0;
+  public activemqBrokers = 0;
+  public kinesisStreams = 0;
+  public kinesisShards = 0;
+  public glueJobs = 0;
+  public glueCrawlers = 0;
+  public dataPipelines = 0;
+  public esDomains = 0;
+  public swfDomains = 0;
 
-  private loadingSQS: boolean = true;
-  private loadingSQSMessages: boolean = true;
-  public loadingSNS: boolean = true;
-  public loadingGlueCrawlers: boolean = true;
-  public loadingActiveMQBrokers: boolean = true;
-  public loadingGlueJobs: boolean = true;
-  public loadingSwfDomains: boolean = true;
-  public loadingDataPipelines: boolean = true;
-  public loadingKinesisStreams: boolean = true;
-  public loadingKinesisShards: boolean = true;
-  public loadingESDomains: boolean = true;
-  public loadingSQSMessagesChart: boolean = true;
+  private loadingSQS = true;
+  private loadingSQSMessages = true;
+  public loadingSNS = true;
+  public loadingGlueCrawlers = true;
+  public loadingActiveMQBrokers = true;
+  public loadingGlueJobs = true;
+  public loadingSwfDomains = true;
+  public loadingDataPipelines = true;
+  public loadingKinesisStreams = true;
+  public loadingKinesisShards = true;
+  public loadingESDomains = true;
+  public loadingSQSMessagesChart = true;
 
   private _subscription: Subscription;
 
@@ -52,14 +52,14 @@ export class AwsDataAndAIComponent implements OnInit, OnDestroy {
     this._subscription = this.storeService.profileChanged.subscribe(profile => {
       this.sqsMessagesChart.detach();
 
-      let tooltips = document.getElementsByClassName('chartist-tooltip')
+      const tooltips = document.getElementsByClassName('chartist-tooltip');
       for (let i = 0; i < tooltips.length; i++) {
-        tooltips[i].outerHTML = ""
+        tooltips[i].outerHTML = '';
       }
       for (let j = 0; j < 3; j++) {
-        let charts = document.getElementsByTagName('svg');
+        const charts = document.getElementsByTagName('svg');
         for (let i = 0; i < charts.length; i++) {
-          charts[i].outerHTML = ""
+          charts[i].outerHTML = '';
         }
       }
 
@@ -67,7 +67,7 @@ export class AwsDataAndAIComponent implements OnInit, OnDestroy {
       this.numberOfMessagesSentToday = 0;
       this.numberOfMessagesDeletedToday = 0;
       this.snsTopics = 0;
-      this.activemqBrokers = 0; 
+      this.activemqBrokers = 0;
       this.kinesisStreams = 0;
       this.kinesisShards = 0;
       this.glueJobs = 0;
@@ -88,37 +88,37 @@ export class AwsDataAndAIComponent implements OnInit, OnDestroy {
       this.loadingKinesisShards = true;
       this.loadingESDomains = true;
       this.loadingSQSMessagesChart = true;
-      
+
       this.initState();
-    })
+    });
   }
 
   ngOnDestroy() {
     this._subscription.unsubscribe();
   }
 
-  private initState(){
+  private initState() {
     this.awsService.getSQSPublishedMessagesMetrics().subscribe(data => {
-      this.numberOfMessagesSentToday = data[0].Datapoints[Object.keys(data[0].Datapoints)[Object.keys(data[0].Datapoints).length - 1]]
-      this.numberOfMessagesDeletedToday = data[1].Datapoints[Object.keys(data[1].Datapoints)[Object.keys(data[1].Datapoints).length - 1]]
+      this.numberOfMessagesSentToday = data[0].Datapoints[Object.keys(data[0].Datapoints)[Object.keys(data[0].Datapoints).length - 1]];
+      this.numberOfMessagesDeletedToday = data[1].Datapoints[Object.keys(data[1].Datapoints)[Object.keys(data[1].Datapoints).length - 1]];
 
       this.loadingSQSMessages = false;
 
-      let seriesSent = [];
-      let seriesDeleted = [];
-      let labels = [];
-      let i = 0;
+      const seriesSent = [];
+      const seriesDeleted = [];
+      const labels = [];
+      const i = 0;
       Object.keys(data[0].Datapoints).forEach(key => {
-        labels.push(key)
+        labels.push(key);
         seriesSent.push({
           meta: 'NumberOfMessagesSent',
           value: data[0].Datapoints[key]
-        })
+        });
         seriesDeleted.push({
           meta: 'NumberOfMessagesDeleted',
           value: data[1].Datapoints[key]
-        })
-      })
+        });
+      });
 
 
       this.loadingSQSMessagesChart = false;
@@ -129,7 +129,7 @@ export class AwsDataAndAIComponent implements OnInit, OnDestroy {
     }, err => {
       this.loadingSQSMessagesChart = false;
       this.loadingSQSMessages = false;
-    })
+    });
 
     this.awsService.getSQSQueues().subscribe(data => {
       this.sqsQueues = data;
@@ -137,7 +137,7 @@ export class AwsDataAndAIComponent implements OnInit, OnDestroy {
     }, err => {
       this.sqsQueues = 0;
       this.loadingSQS = false;
-    })
+    });
 
     this.awsService.getSNSTopics().subscribe(data => {
       this.snsTopics = data;
@@ -220,21 +220,21 @@ export class AwsDataAndAIComponent implements OnInit, OnDestroy {
     // Nine Zeroes for Billions
     return Math.abs(Number(labelValue)) >= 1.0e+9
 
-      ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
-      // Six Zeroes for Millions 
+      ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + ' B'
+      // Six Zeroes for Millions
       : Math.abs(Number(labelValue)) >= 1.0e+6
 
-        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + ' M'
         // Three Zeroes for Thousands
         : Math.abs(Number(labelValue)) >= 1.0e+3
 
-          ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+          ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + ' K'
 
           : Math.abs(Number(labelValue));
   }
 
   private showSQSMessages(labels, series) {
-    let scope = this;
+    const scope = this;
     this.sqsMessagesChart = new Chartist.Bar('#sqsMessagesChart', {
       labels: labels,
       series: series

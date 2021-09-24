@@ -6,7 +6,7 @@ import * as Chartist from 'chartist';
 import 'chartist-plugin-tooltips';
 import 'jquery-mapael';
 import 'jquery-mapael/js/maps/world_countries.js';
-import * as $ from "jquery";
+import * as $ from 'jquery';
 declare var Chart: any;
 
 @Component({
@@ -15,26 +15,26 @@ declare var Chart: any;
   styleUrls: ['./aws.component.css']
 })
 export class AwsDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
-  public iamUsers: number = 0;
-  public currentBill: number = 0;
-  public usedRegions: number = 0;
-  public redAlarms: number = 0;
+  public iamUsers = 0;
+  public currentBill = 0;
+  public usedRegions = 0;
+  public redAlarms = 0;
   public mostUsedServices: Array<any> = [];
-  public openTickets: number = 0;
-  public resolvedTickets: number = 0;
-  public forecastBill: string = '0';
+  public openTickets = 0;
+  public resolvedTickets = 0;
+  public forecastBill = '0';
 
-  public loadingCurrentBill: boolean = true;
-  public loadingIamUsers: boolean = true;
-  public loadingUsedRegions: boolean = true;
-  public loadingRedAlarms: boolean = true;
-  public loadingOpenTickets: boolean = true;
-  public loadingResolvedTickets: boolean = true;
-  public loadingCostHistoryChart: boolean = true;
-  public loadingForecastBill: boolean = true;
+  public loadingCurrentBill = true;
+  public loadingIamUsers = true;
+  public loadingUsedRegions = true;
+  public loadingRedAlarms = true;
+  public loadingOpenTickets = true;
+  public loadingResolvedTickets = true;
+  public loadingCostHistoryChart = true;
+  public loadingForecastBill = true;
 
 
-  public colors = ['#36A2EB', '#4BBFC0', '#FBAD4B', '#9368E9']
+  public colors = ['#36A2EB', '#4BBFC0', '#FBAD4B', '#9368E9'];
 
   private regions = {
     us_east_1: {
@@ -130,9 +130,9 @@ export class AwsDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.loadingResolvedTickets = true;
       this.loadingCostHistoryChart = true;
       this.loadingForecastBill = true;
-      
+
       this.initState();
-    })
+    });
   }
 
   ngOnDestroy() {
@@ -140,7 +140,7 @@ export class AwsDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initState() {
-    this.mostUsedServices = []
+    this.mostUsedServices = [];
 
     this.AwsService.getIAMUsers().subscribe(data => {
       this.iamUsers = data;
@@ -166,41 +166,41 @@ export class AwsDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       });
 
-      let periods = [];
-      let series = []
+      const periods = [];
+      const series = [];
       data.forEach(period => {
         periods.push(new Date(period.start).toLocaleString('en-us', { month: 'long' }));
       });
 
       for (let i = 0; i < periods.length; i++) {
-        let serie = []
+        const serie = [];
         for (let j = 0; j < periods.length; j++) {
-          let item = data[j].groups[i]
+          const item = data[j].groups[i];
           serie.push({
             meta: item.key, value: item.amount.toFixed(2)
-          })
+          });
         }
-        series.push(serie)
+        series.push(serie);
       }
 
       this.loadingCostHistoryChart = false;
       this.showLastSixMonth(periods, series);
     }, err => {
       this.loadingCostHistoryChart = false;
-      console.log(err)
+      console.log(err);
     });
 
     this.AwsService.getInstancesPerRegion().subscribe(data => {
-      let plots = {}
+      const plots = {};
       Object.keys(data.region).forEach(key => {
-        let params = this.regions[key.split("-").join("_")];
+        const params = this.regions[key.split('-').join('_')];
         plots[key] = {
           latitude: params.latitude,
           longitude: params.longitude,
           value: [data.region[key], 1],
           tooltip: { content: `${key}<br />Instances: ${data.region[key]}` }
-        }
-      })
+        };
+      });
       this.showEC2InstancesPerRegion(plots);
     }, err => {
       console.log(err);
@@ -232,10 +232,10 @@ export class AwsDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.AwsService.getSupportTicketsHistory().subscribe(data => {
       data.forEach(ticket => {
-        if (ticket.status == "resolved") {
+        if (ticket.status == 'resolved') {
           this.resolvedTickets++;
         }
-      })
+      });
       this.loadingResolvedTickets = false;
     }, err => {
       this.resolvedTickets = 0;
@@ -262,49 +262,49 @@ export class AwsDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     // Nine Zeroes for Billions
     return Math.abs(Number(labelValue)) >= 1.0e+9
 
-      ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
-      // Six Zeroes for Millions 
+      ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + ' B'
+      // Six Zeroes for Millions
       : Math.abs(Number(labelValue)) >= 1.0e+6
 
-        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + ' M'
         // Three Zeroes for Thousands
         : Math.abs(Number(labelValue)) >= 1.0e+3
 
-          ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+          ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + ' K'
 
           : Math.abs(Number(labelValue)).toFixed(2);
 
   }
 
   public showEC2InstancesPerRegion(plots) {
-    var canvas: any = $(".mapregions");
+    const canvas: any = $('.mapregions');
     canvas.mapael({
       map: {
-        name: "world_countries",
+        name: 'world_countries',
         zoom: {
           enabled: true,
           maxLevel: 10
         },
         defaultPlot: {
           attrs: {
-            fill: "#004a9b"
+            fill: '#004a9b'
             , opacity: 0.6
           }
         },
         defaultArea: {
           attrs: {
-            fill: "#e4e4e4"
-            , stroke: "#fafafa"
+            fill: '#e4e4e4'
+            , stroke: '#fafafa'
           }
           , attrsHover: {
-            fill: "#FBAD4B"
+            fill: '#FBAD4B'
           }
           , text: {
             attrs: {
-              fill: "#505444"
+              fill: '#505444'
             }
             , attrsHover: {
-              fill: "#000"
+              fill: '#000'
             }
           }
         }
@@ -313,30 +313,30 @@ export class AwsDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         plot: [
           {
             labelAttrs: {
-              fill: "#f4f4e8"
+              fill: '#f4f4e8'
             },
             titleAttrs: {
-              fill: "#f4f4e8"
+              fill: '#f4f4e8'
             },
             cssClass: 'density',
             mode: 'horizontal',
-            title: "Density",
+            title: 'Density',
             marginBottomTitle: 5,
             slices: [{
-              label: "< 1",
-              max: "0",
+              label: '< 1',
+              max: '0',
               attrs: {
-                fill: "#36A2EB"
+                fill: '#36A2EB'
               },
               legendSpecificAttrs: {
                 r: 25
               }
             }, {
-              label: "> 1",
-              min: "1",
-              max: "50000",
+              label: '> 1',
+              min: '1',
+              max: '50000',
               attrs: {
-                fill: "#87CB14"
+                fill: '#87CB14'
               },
               legendSpecificAttrs: {
                 r: 25
@@ -350,13 +350,13 @@ export class AwsDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public showLastSixMonth(labels, series) {
-    let scope = this;
-    var costHistory = {
+    const scope = this;
+    const costHistory = {
       labels: labels,
       series: series
-    }
+    };
 
-    var optionChartCostHistory = {
+    const optionChartCostHistory = {
       plugins: [
         Chartist.plugins.tooltip()
       ],
@@ -367,11 +367,11 @@ export class AwsDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       axisY: {
         offset: 80,
         labelInterpolationFnc: function (value) {
-          return scope.formatNumber(value)
+          return scope.formatNumber(value);
         },
       },
-      height: "245px",
-    }
+      height: '245px',
+    };
 
     new Chartist.Bar('#costHistoryChart', costHistory, optionChartCostHistory);
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { StoreService } from '../store.service';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './compute.component.html',
   styleUrls: ['./compute.component.css']
 })
-export class ComputeComponent implements OnInit, AfterViewInit,OnDestroy {
+export class ComputeComponent implements OnInit, AfterViewInit, OnDestroy {
   public provider: string;
   public _subscription: Subscription;
 
@@ -16,7 +16,7 @@ export class ComputeComponent implements OnInit, AfterViewInit,OnDestroy {
     this._subscription = this.storeService.providerChanged.subscribe(provider => {
       console.log(provider);
       this.provider = provider;
-    })
+    });
   }
 
   ngOnDestroy() {

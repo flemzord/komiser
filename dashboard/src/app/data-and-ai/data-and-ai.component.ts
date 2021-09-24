@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StoreService } from '../store.service';
 import { Subscription } from 'rxjs';
 
@@ -15,7 +15,7 @@ export class DataAndAiComponent implements OnInit, OnDestroy {
     this.provider = this.storeService.getProvider();
     this._subscription = this.storeService.providerChanged.subscribe(provider => {
       this.provider = provider;
-    })
+    });
   }
 
   ngOnDestroy() {

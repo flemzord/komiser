@@ -8,12 +8,12 @@ builds:
   - env:
       - CGO_ENABLED=0
     goos:
-#      - linux
+      - linux
       - darwin
-#      - windows
+      - windows
     goarch:
-#      - amd64
-#      - arm
+      - amd64
+      - arm
       - arm64
     mod_timestamp: '{{ .CommitTimestamp }}'
 

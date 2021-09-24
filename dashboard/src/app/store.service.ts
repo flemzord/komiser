@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from "rxjs/Subject";
+import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class StoreService {
 
@@ -14,7 +14,7 @@ export class StoreService {
   public profileChanged: Subject<string> = new Subject<string>();
 
   constructor() {
-    if(localStorage.getItem('provider')){
+    if (localStorage.getItem('provider')) {
       this.provider = localStorage.getItem('provider');
     } else {
       this.provider = 'aws';
@@ -23,38 +23,38 @@ export class StoreService {
     this.providerChanged.next(this.provider);
   }
 
-  public getProvider(){
+  public getProvider() {
     return this.provider;
   }
 
-  public add(notification: string){
-    let item = this.notifications[notification];
+  public add(notification: string) {
+    const item = this.notifications[notification];
     if (item) {
       this.notifications[notification] = {
         content: notification,
         timestamp: new Date(),
         total: item.total + 1
-      }
+      };
     } else {
       this.notifications[notification] = {
         content: notification,
         timestamp: new Date(),
         total: 1
-      }
+      };
     }
     this.newNotification.next(this.notifications);
   }
 
-  public list(){
+  public list() {
     return this.notifications;
   }
 
-  public cleanNotifications(){
+  public cleanNotifications() {
     this.notifications = new Map();
     this.newNotification.next(this.notifications);
   }
 
-  public onProviderChanged(provider: string){
+  public onProviderChanged(provider: string) {
     this.provider = provider;
     localStorage.setItem('provider', this.provider);
     this.providerChanged.next(this.provider);
@@ -62,7 +62,7 @@ export class StoreService {
     this.newNotification.next(this.notifications);
   }
 
-  public onProfileChanged(profile: string){
+  public onProfileChanged(profile: string) {
     this.profileChanged.next(profile);
     this.notifications = new Map();
     this.newNotification.next(this.notifications);

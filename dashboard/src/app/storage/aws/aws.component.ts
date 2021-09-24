@@ -35,24 +35,24 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
   public logsRetentionPeriod: number;
   public redshiftClusters: number;
 
-  public loadingS3Buckets: boolean = true;
-  public loadingS3BucketSize: boolean = true;
-  public loadingS3BucketObjects: boolean = true;
-  public loadingEmptyBuckets: boolean = true;
-  public loadingEbsTotal: boolean = true;
-  public loadingEbsTotalSize: boolean = true;
-  public loadingEbsUsed: boolean = true;
-  public loadingLogsRetentionPeriod: boolean = true;
-  public loadingDynamoTables: boolean = true;
-  public loadingRdsInstances: boolean = true;
-  public loadingDocDbInstances: boolean = true;
-  public loadingRedshiftClusters: boolean = true;
-  public loadingMemCachedClusters: boolean = true;
-  public loadingRedisClusters: boolean = true;
-  public loadingS3BucketsSizeChart: boolean = true;
-  public loadingS3BucketsObjectsChart: boolean = true;
-  public loadingEbsFamilyChart: boolean = true;
-  public loadingLogsVolumeChart: boolean = true;
+  public loadingS3Buckets = true;
+  public loadingS3BucketSize = true;
+  public loadingS3BucketObjects = true;
+  public loadingEmptyBuckets = true;
+  public loadingEbsTotal = true;
+  public loadingEbsTotalSize = true;
+  public loadingEbsUsed = true;
+  public loadingLogsRetentionPeriod = true;
+  public loadingDynamoTables = true;
+  public loadingRdsInstances = true;
+  public loadingDocDbInstances = true;
+  public loadingRedshiftClusters = true;
+  public loadingMemCachedClusters = true;
+  public loadingRedisClusters = true;
+  public loadingS3BucketsSizeChart = true;
+  public loadingS3BucketsObjectsChart = true;
+  public loadingEbsFamilyChart = true;
+  public loadingLogsVolumeChart = true;
 
   private _subscription: Subscription;
 
@@ -65,14 +65,14 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
       this.logsVolumeChart.detach();
       this.ebsFamilyChart.destroy();
 
-      let tooltips = document.getElementsByClassName('chartist-tooltip')
+      const tooltips = document.getElementsByClassName('chartist-tooltip');
       for (let i = 0; i < tooltips.length; i++) {
-        tooltips[i].outerHTML = ""
+        tooltips[i].outerHTML = '';
       }
       for (let j = 0; j < 3; j++) {
-        let charts = document.getElementsByTagName('svg');
+        const charts = document.getElementsByTagName('svg');
         for (let i = 0; i < charts.length; i++) {
-          charts[i].outerHTML = ""
+          charts[i].outerHTML = '';
         }
       }
 
@@ -129,14 +129,14 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
     });
 
     this.awsService.getEBS().subscribe(data => {
-      let sum = 0
-      let labels = []
-      let series = []
+      let sum = 0;
+      const labels = [];
+      const series = [];
       Object.keys(data.family).forEach(key => {
-        sum += data.family[key]
+        sum += data.family[key];
         labels.push(key);
-        series.push(data.family[key])
-      })
+        series.push(data.family[key]);
+      });
       this.ebsTotal = sum;
       this.loadingEbsTotal = false;
       this.ebsTotalSize = this.bytesToSizeWithUnit(data.total * 1024 * 1024);
@@ -146,9 +146,9 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
       this.loadingEbsFamilyChart = false;
       this.showEBSFamily(labels, series);
     }, err => {
-      this.ebsTotal = 0
-      this.ebsTotalSize = '0 KB'
-      this.ebsUsed = 0
+      this.ebsTotal = 0;
+      this.ebsTotalSize = '0 KB';
+      this.ebsUsed = 0;
       this.loadingEbsTotal = false;
       this.loadingEbsTotalSize = false;
       this.loadingEbsUsed = false;
@@ -158,25 +158,25 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
     this.awsService.getBucketObjects().subscribe(data => {
       let total = 0;
       Object.keys(data).forEach(region => {
-        total += data[region][Object.keys(data[region])[Object.keys(data[region]).length - 1]]
-      })
+        total += data[region][Object.keys(data[region])[Object.keys(data[region]).length - 1]];
+      });
 
-      let labels = [];
+      const labels = [];
       let i = 0;
-      let series = [];
+      const series = [];
       Object.keys(data).forEach(region => {
-        let serie = [];
+        const serie = [];
         Object.keys(data[region]).forEach(timestamp => {
           serie.push({
             meta: region, value: data[region][timestamp]
-          })
+          });
           if (i == 0) {
-            labels.push(timestamp)
+            labels.push(timestamp);
           }
-        })
-        series.push(serie)
+        });
+        series.push(serie);
         i++;
-      })
+      });
 
       this.loadingS3BucketObjects = false;
       this.s3BucketObjects = this.formatNumber(total).toString();
@@ -192,26 +192,26 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
     });
 
     this.awsService.getBucketSize().subscribe(data => {
-      let labels = [];
+      const labels = [];
       let i = 0;
-      let series = [];
+      const series = [];
       Object.keys(data).forEach(region => {
-        let serie = [];
+        const serie = [];
         Object.keys(data[region]).forEach(timestamp => {
           serie.push({
             meta: region, value: data[region][timestamp]
-          })
+          });
           if (i == 0) {
-            labels.push(timestamp)
+            labels.push(timestamp);
           }
-        })
-        series.push(serie)
+        });
+        series.push(serie);
         i++;
-      })
+      });
 
       let total = 0;
       Object.keys(data).forEach(region => {
-        total += data[region][Object.keys(data[region])[Object.keys(data[region]).length - 1]]
+        total += data[region][Object.keys(data[region])[Object.keys(data[region]).length - 1]];
       });
 
       this.loadingS3BucketsSizeChart = false;
@@ -245,10 +245,10 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
       this.docdbInstances = data.docdb ? data.docdb : 0;
       let total = 0;
       Object.keys(data).forEach(key => {
-        if (key != "docdb") {
-          total += data[key]
+        if (key != 'docdb') {
+          total += data[key];
         }
-      })
+      });
       this.loadingDocDbInstances = false;
       this.loadingRdsInstances = false;
       this.rdsInstances = total;
@@ -271,21 +271,21 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
     });
 
     this.awsService.getLogsVolume().subscribe(data => {
-      let seriesIncomingBytes = [];
-      let seriesIncomingLogEvents = [];
-      let labels = [];
+      const seriesIncomingBytes = [];
+      const seriesIncomingLogEvents = [];
+      const labels = [];
 
       Object.keys(data[0].Datapoints).forEach(key => {
-        labels.push(key)
+        labels.push(key);
         seriesIncomingBytes.push({
           meta: 'IncomingBytes',
           value: data[0].Datapoints[key]
-        })
+        });
         seriesIncomingLogEvents.push({
           meta: 'IncomingLogEvents',
           value: data[1].Datapoints[key]
-        })
-      })
+        });
+      });
 
       this.loadingLogsVolumeChart = false;
       this.showLogsVolume(labels, [
@@ -310,12 +310,12 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
     }, err => {
       this.redshiftClusters = 0;
       this.loadingRedshiftClusters = false;
-    })
+    });
   }
 
 
   private showS3BucketsObjects(labels, series) {
-    let scope = this;
+    const scope = this;
     this.s3BucketsObjectsChart = new Chartist.Bar('#s3BucketsObjectsChart', {
       labels: labels,
       series: series
@@ -340,7 +340,7 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
   }
 
   private showS3BucketsSize(labels, series) {
-    let scope = this;
+    const scope = this;
     this.s3BucketsSizeChart = new Chartist.Bar('#s3BucketsSizeChart', {
       labels: labels,
       series: series
@@ -365,7 +365,7 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
   }
 
   private showLogsVolume(labels, series) {
-    let scope = this;
+    const scope = this;
     this.logsVolumeChart = new Chartist.Bar('#logsVolumeChart', {
       labels: labels,
       series: series
@@ -392,14 +392,14 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
   ngOnInit() { }
 
   private showEBSFamily(labels, series) {
-    var barChartData = {
+    const barChartData = {
       labels: labels,
       datasets: [{
         backgroundColor: [
-          "#36A2EB",
-          "#4BC0C0",
-          "#FFCD56",
-          "#FF6385"
+          '#36A2EB',
+          '#4BC0C0',
+          '#FFCD56',
+          '#FF6385'
         ],
         borderWidth: 1,
         data: series
@@ -407,8 +407,8 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
 
     };
 
-    let canvas: any = document.getElementById('ebsFamilyChart');
-    var ctx = canvas.getContext('2d');
+    const canvas: any = document.getElementById('ebsFamilyChart');
+    const ctx = canvas.getContext('2d');
     this.ebsFamilyChart = new Chart(ctx, {
       type: 'pie',
       data: barChartData,
@@ -427,40 +427,40 @@ export class AwsStorageComponent implements OnInit, OnDestroy {
     // Nine Zeroes for Billions
     return Math.abs(Number(labelValue)) >= 1.0e+9
 
-      ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
-      // Six Zeroes for Millions 
+      ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + ' B'
+      // Six Zeroes for Millions
       : Math.abs(Number(labelValue)) >= 1.0e+6
 
-        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + ' M'
         // Three Zeroes for Thousands
         : Math.abs(Number(labelValue)) >= 1.0e+3
 
-          ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+          ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + ' K'
 
           : Math.abs(Number(labelValue));
 
   }
 
   private dynamicColors() {
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    return "rgba(" + r + "," + g + "," + b + ", 0.5)";
+    const r = Math.floor(Math.random() * 255);
+    const g = Math.floor(Math.random() * 255);
+    const b = Math.floor(Math.random() * 255);
+    return 'rgba(' + r + ',' + g + ',' + b + ', 0.5)';
   }
 
   private bytesToSizeWithUnit(bytes) {
-    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    if (bytes == 0) return '0 Byte';
-    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)).toString());
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) { return '0 Byte'; }
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)).toString());
     return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i];
-  };
+  }
 
   private bytesToSize(bytes) {
-    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    if (bytes == 0) return '0 Byte';
-    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)).toString());
-    return Math.round(bytes / Math.pow(1024, i))
-  };
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) { return '0 Byte'; }
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)).toString());
+    return Math.round(bytes / Math.pow(1024, i));
+  }
 
 
 }

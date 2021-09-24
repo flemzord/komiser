@@ -16,7 +16,7 @@ export class SecurityComponent implements OnInit, AfterViewInit, OnDestroy {
     this._subscription = this.storeService.providerChanged.subscribe(provider => {
       console.log(provider);
       this.provider = provider;
-    })
+    });
   }
 
   ngOnDestroy() {

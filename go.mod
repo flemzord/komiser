@@ -3,9 +3,7 @@ module github.com/flemzord/komiser
 go 1.16
 
 require (
-	cloud.google.com/go v0.37.5-0.20190430080321-149c87153689
 	github.com/aws/aws-sdk-go-v2 v0.7.1-0.20190410190156-80eda21e3854
-	github.com/digitalocean/godo v1.19.1-0.20190722163849-4677563d2a4e
 	github.com/go-redis/redis v6.15.3-0.20190419151012-721116ac0e91+incompatible
 	github.com/golang/protobuf v1.3.2-0.20190409050943-e91709a02e0e // indirect
 	github.com/google/go-querystring v1.0.1-0.20190318165438-c8c88dbee036 // indirect
@@ -15,7 +13,6 @@ require (
 	github.com/hashicorp/golang-lru v0.5.1 // indirect
 	github.com/onsi/ginkgo v1.10.2 // indirect
 	github.com/onsi/gomega v1.7.0 // indirect
-	github.com/ovh/go-ovh v0.0.0-20181109152953-ba5adb4cf014
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/smartystreets/goconvey v0.0.0-20190731233626-505e41936337 // indirect
 	github.com/urfave/cli v1.20.1-0.20180226030253-8e01ec4cd3e2

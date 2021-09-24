@@ -16,11 +16,11 @@ import 'chartist-plugin-tooltips';
   styleUrls: ['./aws.component.css']
 })
 export class AwsNetworkComponent implements OnInit, OnDestroy {
-  private cloudfrontRequests:any;
-  private apigatewayRequests:any;
+  private cloudfrontRequests: any;
+  private apigatewayRequests: any;
   private elbRequests: any;
-  private elbFamilyType:any;
-  private natGatewayChartTraffic:any;
+  private elbFamilyType: any;
+  private natGatewayChartTraffic: any;
 
   public vpcNumber: number;
   public aclNumber: number;
@@ -40,29 +40,29 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
   public natGatewayAvailableRegions: Array<String> = [];
   public natGatewayTraffic: Array<any> = [];
 
-  public loadingVPCNumbers: boolean = true;
-  public loadingACLNumbers: boolean = true;
-  public loadingSubnetNumbers: boolean = true;
-  public loadingRouteTablesNumber: boolean = true;
-  public loadingCDNNumbers: boolean = true;
-  public loadingCDNRequests: boolean = true;
-  public loadingAPIGateways: boolean = true;
-  public loadingAPIRequests: boolean = true;
-  public loadingELBNumber: boolean = true;
-  public loadingElbRequests: boolean = true;
-  public loadingRoute53Zones: boolean = true;
-  public loadingRoute53ARecords: boolean = true;
-  public loadingCloudfrontRequestsChart: boolean = true;
-  public loadingApigatewayRequestsChart: boolean = true;
-  public loadingElbRequestsChart: boolean = true;
-  public loadingNatGatewayTrafficChart: boolean = true;
-  public loadingElbFamilyType: boolean = true;
+  public loadingVPCNumbers = true;
+  public loadingACLNumbers = true;
+  public loadingSubnetNumbers = true;
+  public loadingRouteTablesNumber = true;
+  public loadingCDNNumbers = true;
+  public loadingCDNRequests = true;
+  public loadingAPIGateways = true;
+  public loadingAPIRequests = true;
+  public loadingELBNumber = true;
+  public loadingElbRequests = true;
+  public loadingRoute53Zones = true;
+  public loadingRoute53ARecords = true;
+  public loadingCloudfrontRequestsChart = true;
+  public loadingApigatewayRequestsChart = true;
+  public loadingElbRequestsChart = true;
+  public loadingNatGatewayTrafficChart = true;
+  public loadingElbFamilyType = true;
 
   private _subscription: Subscription;
 
   constructor(private awsService: AwsService, private storeService: StoreService) {
     this.initState();
-    
+
     this._subscription = this.storeService.profileChanged.subscribe(profile => {
       this.cloudfrontRequests.destroy();
       this.apigatewayRequests.destroy();
@@ -70,14 +70,14 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
       this.elbFamilyType.destroy();
       //this.natGatewayChartTraffic.detach();
 
-      let tooltips = document.getElementsByClassName('chartist-tooltip')
+      const tooltips = document.getElementsByClassName('chartist-tooltip');
       for (let i = 0; i < tooltips.length; i++) {
-        tooltips[i].outerHTML = ""
+        tooltips[i].outerHTML = '';
       }
       for (let j = 0; j < 3; j++) {
-        let charts = document.getElementsByTagName('svg');
+        const charts = document.getElementsByTagName('svg');
         for (let i = 0; i < charts.length; i++) {
-          charts[i].outerHTML = ""
+          charts[i].outerHTML = '';
         }
       }
 
@@ -99,7 +99,7 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
       this.natGatewayAvailableRegions = [];
       this.natGatewayTraffic = [];
 
-      this.loadingVPCNumbers= true;
+      this.loadingVPCNumbers = true;
       this.loadingACLNumbers = true;
       this.loadingSubnetNumbers = true;
       this.loadingRouteTablesNumber = true;
@@ -156,25 +156,25 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
     }, err => {
       this.cloudfrontDistributions = 0;
       this.loadingCDNNumbers = false;
-    })
+    });
 
     this.awsService.getCloudFrontRequests().subscribe(data => {
-      let datasets = [];
-      let total = 0;
+      const datasets = [];
+      const total = 0;
 
       let todayRequests = 0;
       let yesterdayRequests = 0;
 
-      let todayDate = new Date();
+      const todayDate = new Date();
       todayDate.setHours(0, 0, 0, 0);
-      let yesterdayDate = new Date(new Date().setDate(new Date().getDate() - 1))
+      const yesterdayDate = new Date(new Date().setDate(new Date().getDate() - 1));
       yesterdayDate.setHours(0, 0, 0, 0);
 
       data.forEach(distribution => {
         if (distribution && distribution.Distribution) {
           if (distribution.Datapoints.length > 0) {
-            let color = this.dynamicColors()
-            let dataset = {
+            const color = this.dynamicColors();
+            const dataset = {
               label: distribution.Distribution,
               backgroundColor: color,
               borderColor: color,
@@ -182,15 +182,15 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
               borderWidth: 1,
               pointStyle: 'line',
               data: []
-            }
-            let data = []
+            };
+            const data = [];
             distribution.Datapoints.forEach(dt => {
               data.push({
                 x: new Date(dt.timestamp),
                 y: dt.value
-              })
+              });
 
-              let dtTimestamp = new Date(dt.timestamp);
+              const dtTimestamp = new Date(dt.timestamp);
               dtTimestamp.setHours(0, 0, 0, 0);
 
               if (moment(dtTimestamp).isSame(todayDate)) {
@@ -200,12 +200,12 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
               if (moment(dtTimestamp).isSame(yesterdayDate)) {
                 yesterdayRequests += dt.value;
               }
-            })
-            dataset.data = data
-            datasets.push(dataset)
+            });
+            dataset.data = data;
+            datasets.push(dataset);
           }
         }
-      })
+      });
 
       this.loadingCDNRequests = false;
       this.cdnYesterdayRequests = this.formatNumber(yesterdayRequests).toString();
@@ -217,25 +217,25 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
       this.cdnYesterdayRequests = '0';
       this.loadingCloudfrontRequestsChart = false;
       this.loadingCDNRequests = false;
-    })
+    });
 
     this.awsService.getApiGatewayRequests().subscribe(data => {
-      let datasets = [];
-      let total = 0;
+      const datasets = [];
+      const total = 0;
 
       let todayRequests = 0;
       let yesterdayRequests = 0;
 
-      let todayDate = new Date();
+      const todayDate = new Date();
       todayDate.setHours(0, 0, 0, 0);
-      let yesterdayDate = new Date(new Date().setDate(new Date().getDate() - 1))
+      const yesterdayDate = new Date(new Date().setDate(new Date().getDate() - 1));
       yesterdayDate.setHours(0, 0, 0, 0);
 
       data.forEach(region => {
         if (region && region.Region) {
           if (region.Datapoints.length > 0) {
-            let color = this.dynamicColors()
-            let dataset = {
+            const color = this.dynamicColors();
+            const dataset = {
               label: region.Region,
               backgroundColor: color,
               borderColor: color,
@@ -243,15 +243,15 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
               borderWidth: 1,
               pointStyle: 'line',
               data: []
-            }
-            let data = []
+            };
+            const data = [];
             region.Datapoints.forEach(dt => {
               data.push({
                 x: new Date(dt.timestamp),
                 y: dt.value
-              })
+              });
 
-              let dtTimestamp = new Date(dt.timestamp);
+              const dtTimestamp = new Date(dt.timestamp);
               dtTimestamp.setHours(0, 0, 0, 0);
 
               if (moment(dtTimestamp).isSame(todayDate)) {
@@ -261,16 +261,16 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
               if (moment(dtTimestamp).isSame(yesterdayDate)) {
                 yesterdayRequests += dt.value;
               }
-            })
-            dataset.data = data
-            datasets.push(dataset)
+            });
+            dataset.data = data;
+            datasets.push(dataset);
           }
         }
-      })
+      });
       this.loadingAPIRequests = false;
       this.loadingApigatewayRequestsChart = false;
       this.apigatewayYesterdayRequests = this.formatNumber(yesterdayRequests).toString();
-      this.apigatewayTodayRequests = this.formatNumber(todayRequests).toString()
+      this.apigatewayTodayRequests = this.formatNumber(todayRequests).toString();
       this.showApiGatewayRequests(datasets);
     }, err => {
       this.apigatewayYesterdayRequests = '0';
@@ -288,22 +288,22 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
     });
 
     this.awsService.getELBRequests().subscribe(data => {
-      let datasets = [];
-      let total = 0;
+      const datasets = [];
+      const total = 0;
 
       let todayRequests = 0;
       let yesterdayRequests = 0;
 
-      let todayDate = new Date();
+      const todayDate = new Date();
       todayDate.setHours(0, 0, 0, 0);
-      let yesterdayDate = new Date(new Date().setDate(new Date().getDate() - 1))
+      const yesterdayDate = new Date(new Date().setDate(new Date().getDate() - 1));
       yesterdayDate.setHours(0, 0, 0, 0);
 
       data.forEach(region => {
         if (region && region.Region) {
           if (region.Datapoints.length > 0) {
-            let color = this.dynamicColors()
-            let dataset = {
+            const color = this.dynamicColors();
+            const dataset = {
               label: region.Region,
               backgroundColor: color,
               borderColor: color,
@@ -311,15 +311,15 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
               borderWidth: 1,
               pointStyle: 'line',
               data: []
-            }
-            let data = []
+            };
+            const data = [];
             region.Datapoints.forEach(dt => {
               data.push({
                 x: new Date(dt.timestamp),
                 y: dt.value
-              })
+              });
 
-              let dtTimestamp = new Date(dt.timestamp);
+              const dtTimestamp = new Date(dt.timestamp);
               dtTimestamp.setHours(0, 0, 0, 0);
 
               if (moment(dtTimestamp).isSame(todayDate)) {
@@ -329,12 +329,12 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
               if (moment(dtTimestamp).isSame(yesterdayDate)) {
                 yesterdayRequests += dt.value;
               }
-            })
-            dataset.data = data
-            datasets.push(dataset)
+            });
+            dataset.data = data;
+            datasets.push(dataset);
           }
         }
-      })
+      });
       this.loadingElbRequests = false;
       this.loadingElbRequestsChart = false;
       this.elbYesterdayRequests = this.formatNumber(yesterdayRequests).toString();
@@ -349,11 +349,11 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
 
 
     this.awsService.getELBFamily().subscribe(data => {
-      let labels = [];
-      let dataset = [];
+      const labels = [];
+      const dataset = [];
       let total = 0;
       Object.keys(data).forEach(key => {
-        labels.push(key)
+        labels.push(key);
         dataset.push(data[key]);
         total += data[key];
       });
@@ -408,21 +408,21 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
     }, err => {
       this.subnetNumbers = 0;
       this.loadingSubnetNumbers = false;
-    })
+    });
   }
 
   private dynamicColors() {
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    return "rgba(" + r + "," + g + "," + b + ", 0.5)";
+    const r = Math.floor(Math.random() * 255);
+    const g = Math.floor(Math.random() * 255);
+    const b = Math.floor(Math.random() * 255);
+    return 'rgba(' + r + ',' + g + ',' + b + ', 0.5)';
   }
 
   ngOnInit() {
   }
 
   private showNatGatewayTraffic(labels, series) {
-    let scope = this;
+    const scope = this;
     this.natGatewayChartTraffic = new Chartist.Bar('#natGatewayChartTraffic', {
       labels: labels,
       series: series
@@ -448,19 +448,19 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
 
   public showNatGatewayTrafficInRegion(region: any) {
 
-    let labels = [];
-    let series = [];
-    let serieBytesIn = [];
-    let serieBytesOut = [];
+    const labels = [];
+    const series = [];
+    const serieBytesIn = [];
+    const serieBytesOut = [];
     Object.keys(this.natGatewayTraffic[region]).forEach(timestamp => {
       labels.push(timestamp);
       serieBytesIn.push({
         meta: 'BytesInFromDestination', value: this.natGatewayTraffic[region][timestamp].BytesInFromDestination
-      })
+      });
       serieBytesOut.push({
         meta: 'BytesOutToDestination', value: this.natGatewayTraffic[region][timestamp].BytesOutToDestination
-      })
-    })
+      });
+    });
     series.push(serieBytesIn);
     series.push(serieBytesOut);
 
@@ -468,22 +468,22 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
   }
 
   private bytesToSizeWithUnit(bytes) {
-    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    if (bytes == 0) return '0 Byte';
-    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)).toString());
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) { return '0 Byte'; }
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)).toString());
     return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i];
-  };
+  }
 
 
   private showELBFamily(labels, dataset) {
-    var barChartData = {
+    const barChartData = {
       labels: labels,
       datasets: [{
         backgroundColor: [
-          "#36A2EB",
-          "#4BC0C0",
-          "#FFCD56",
-          "#FF6385"
+          '#36A2EB',
+          '#4BC0C0',
+          '#FFCD56',
+          '#FF6385'
         ],
         borderWidth: 1,
         data: dataset
@@ -491,8 +491,8 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
 
     };
 
-    var canvas: any = document.getElementById('elbFamilyType');
-    var ctx = canvas.getContext('2d');
+    const canvas: any = document.getElementById('elbFamilyType');
+    const ctx = canvas.getContext('2d');
     this.elbFamilyType = new Chart(ctx, {
       type: 'pie',
       data: barChartData,
@@ -510,23 +510,23 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
     // Nine Zeroes for Billions
     return Math.abs(Number(labelValue)) >= 1.0e+9
 
-      ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
-      // Six Zeroes for Millions 
+      ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + ' B'
+      // Six Zeroes for Millions
       : Math.abs(Number(labelValue)) >= 1.0e+6
 
-        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + ' M'
         // Three Zeroes for Thousands
         : Math.abs(Number(labelValue)) >= 1.0e+3
 
-          ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+          ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + ' K'
 
           : Math.abs(Number(labelValue));
 
   }
 
   private showApiGatewayRequests(datasets) {
-    let scope = this;
-    var config = {
+    const scope = this;
+    const config = {
       type: 'line',
       data: {
         datasets: datasets
@@ -574,14 +574,14 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
       }
     };
 
-    var canvas: any = document.getElementById('apigatewayRequests');
-    var ctx = canvas.getContext('2d');
+    const canvas: any = document.getElementById('apigatewayRequests');
+    const ctx = canvas.getContext('2d');
     this.apigatewayRequests = new Chart(ctx, config);
   }
 
   private showCloudFrontRequests(datasets) {
-    let scope = this;
-    var config = {
+    const scope = this;
+    const config = {
       type: 'line',
       data: {
         datasets: datasets
@@ -629,14 +629,14 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
       }
     };
 
-    var canvas: any = document.getElementById('cloudfrontRequests');
-    var ctx = canvas.getContext('2d');
+    const canvas: any = document.getElementById('cloudfrontRequests');
+    const ctx = canvas.getContext('2d');
     this.cloudfrontRequests = new Chart(ctx, config);
   }
 
   private showELBRequests(datasets) {
-    let scope = this;
-    var config = {
+    const scope = this;
+    const config = {
       type: 'line',
       data: {
         datasets: datasets
@@ -684,8 +684,8 @@ export class AwsNetworkComponent implements OnInit, OnDestroy {
       }
     };
 
-    var canvas: any = document.getElementById('elbRequests');
-    var ctx = canvas.getContext('2d');
+    const canvas: any = document.getElementById('elbRequests');
+    const ctx = canvas.getContext('2d');
     this.elbRequests = new Chart(ctx, config);
   }
 

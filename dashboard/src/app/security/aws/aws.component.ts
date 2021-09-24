@@ -5,7 +5,7 @@ import { StoreService } from '../../store.service';
 import { Subject, Subscription } from 'rxjs';
 import 'jquery-mapael';
 import 'jquery-mapael/js/maps/world_countries.js';
-import * as $ from "jquery";
+import * as $ from 'jquery';
 import * as Chartist from 'chartist';
 import 'chartist-plugin-tooltips';
 
@@ -15,7 +15,7 @@ import 'chartist-plugin-tooltips';
   styleUrls: ['./aws.component.css']
 })
 export class AwsSecurityComponent implements OnInit, AfterViewInit, OnDestroy {
-  private signInEventsChart:any;
+  private signInEventsChart: any;
 
   public kmsKeys: number;
   public securityGroups: number;
@@ -27,13 +27,13 @@ export class AwsSecurityComponent implements OnInit, AfterViewInit, OnDestroy {
   public returnedUnrestrictedSecurityGroups: Array<any> = [];
   public consoleLoginSourceIps: Array<any> = [];
 
-  public loadingKMSKeys: boolean = true;
-  public loadingSecurityGroups: boolean = true;
-  public loadingKeyPairs: boolean = true;
-  public loadingRouteTables: boolean = true;
-  public loadingACMCertificates: boolean = true;
-  public loadingACMExpiredCertificates: boolean = true;
-  public loadingSignInEventsChart: boolean = true;
+  public loadingKMSKeys = true;
+  public loadingSecurityGroups = true;
+  public loadingKeyPairs = true;
+  public loadingRouteTables = true;
+  public loadingACMCertificates = true;
+  public loadingACMExpiredCertificates = true;
+  public loadingSignInEventsChart = true;
 
   private _subscription: Subscription;
 
@@ -44,9 +44,9 @@ export class AwsSecurityComponent implements OnInit, AfterViewInit, OnDestroy {
       this.signInEventsChart.detach();
 
       for (let j = 0; j < 3; j++) {
-        let charts = document.getElementsByTagName('svg');
+        const charts = document.getElementsByTagName('svg');
         for (let i = 0; i < charts.length; i++) {
-          charts[i].outerHTML = ""
+          charts[i].outerHTML = '';
         }
       }
 
@@ -130,29 +130,29 @@ export class AwsSecurityComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.awsService.getConsoleLoginEvents().subscribe(data => {
-      let labels = [];
-      let series = [];
+      const labels = [];
+      const series = [];
 
       Object.keys(data).forEach(period => {
-        labels.push(period)
+        labels.push(period);
 
-      })
+      });
 
       for (let i = 0; i < labels.length; i++) {
-        let serie = []
+        const serie = [];
         for (let j = 0; j < labels.length; j++) {
-          let username = Object.keys(data[labels[j]])[i]
+          const username = Object.keys(data[labels[j]])[i];
           if (username) {
             serie.push({
               meta: username, value: data[labels[j]][username]
-            })
+            });
           } else {
             serie.push({
               meta: 'others', value: 0
-            })
+            });
           }
         }
-        series.push(serie)
+        series.push(serie);
       }
 
       this.loadingSignInEventsChart = false;
@@ -163,7 +163,7 @@ export class AwsSecurityComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.awsService.getConsoleLoginSourceIps().subscribe(data => {
-      let plots = {}
+      const plots = {};
       Object.keys(data).forEach(ip => {
         this.consoleLoginSourceIps.push({
           ip: ip,
@@ -175,8 +175,8 @@ export class AwsSecurityComponent implements OnInit, AfterViewInit, OnDestroy {
           longitude: data[ip].coordinate.lon,
           value: [data[ip].total, 1],
           tooltip: { content: `${ip}<br />Total: ${data[ip].total}` }
-        }
-      })
+        };
+      });
       this.showSourceIpLogin(plots);
     }, err => {
       this.consoleLoginSourceIps = [];
@@ -201,34 +201,34 @@ export class AwsSecurityComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() { }
 
   private showSourceIpLogin(plots) {
-    var canvas: any = $("#sourceIpsChart");
+    const canvas: any = $('#sourceIpsChart');
     canvas.mapael({
       map: {
-        name: "world_countries",
+        name: 'world_countries',
         zoom: {
           enabled: true,
           maxLevel: 10
         },
         defaultPlot: {
           attrs: {
-            fill: "#004a9b"
+            fill: '#004a9b'
             , opacity: 0.6
           }
         },
         defaultArea: {
           attrs: {
-            fill: "#e4e4e4"
-            , stroke: "#fafafa"
+            fill: '#e4e4e4'
+            , stroke: '#fafafa'
           }
           , attrsHover: {
-            fill: "#FBAD4B"
+            fill: '#FBAD4B'
           }
           , text: {
             attrs: {
-              fill: "#505444"
+              fill: '#505444'
             }
             , attrsHover: {
-              fill: "#000"
+              fill: '#000'
             }
           }
         }
@@ -237,30 +237,30 @@ export class AwsSecurityComponent implements OnInit, AfterViewInit, OnDestroy {
         plot: [
           {
             labelAttrs: {
-              fill: "#f4f4e8"
+              fill: '#f4f4e8'
             },
             titleAttrs: {
-              fill: "#f4f4e8"
+              fill: '#f4f4e8'
             },
             cssClass: 'density',
             mode: 'horizontal',
-            title: "Density",
+            title: 'Density',
             marginBottomTitle: 5,
             slices: [{
-              label: "< 1",
-              max: "0",
+              label: '< 1',
+              max: '0',
               attrs: {
-                fill: "#36A2EB"
+                fill: '#36A2EB'
               },
               legendSpecificAttrs: {
                 r: 25
               }
             }, {
-              label: "> 1",
-              min: "1",
-              max: "50000",
+              label: '> 1',
+              min: '1',
+              max: '50000',
               attrs: {
-                fill: "#87CB14"
+                fill: '#87CB14'
               },
               legendSpecificAttrs: {
                 r: 25
@@ -284,7 +284,7 @@ export class AwsSecurityComponent implements OnInit, AfterViewInit, OnDestroy {
         stackBars: true,
         axisY: {
           labelInterpolationFnc: function (value) {
-            return value
+            return value;
           }
         }
       }).on('draw', function (data) {

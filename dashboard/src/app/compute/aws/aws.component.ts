@@ -5,7 +5,7 @@ import * as Chartist from 'chartist';
 import 'chartist-plugin-tooltips';
 declare var Chart: any;
 declare var Circles: any;
-import * as $ from "jquery";
+import * as $ from 'jquery';
 import { Subject, Subscription } from 'rxjs';
 declare var moment: any;
 
@@ -17,40 +17,40 @@ declare var moment: any;
 export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
   private costPerInstanceTypeChart: any;
   private lambdaInvocationsChart: any;
-  private lambdaErrorsChart:any;
-  private instancesFamilyChart:any;
-  private instancesPrivacyChart:any;
+  private lambdaErrorsChart: any;
+  private instancesFamilyChart: any;
+  private instancesPrivacyChart: any;
 
-  public runningEC2Instances: number = 0;
-  public stoppedEC2Instances: number = 0;
-  public terminatedEC2Instances: number = 0;
+  public runningEC2Instances = 0;
+  public stoppedEC2Instances = 0;
+  public terminatedEC2Instances = 0;
   public lambdaFunctions: any;
-  public ecsServices: number = 0;
-  public ecsTasks: number = 0;
-  public ecsClusters: number = 0;
-  public reservedInstances: number = 0;
-  public spotInstances: number = 0;
-  public scheduledInstances: number = 0;
-  public eksClusters: number = 0;
-  public detchedElasticIps: number = 0;
+  public ecsServices = 0;
+  public ecsTasks = 0;
+  public ecsClusters = 0;
+  public reservedInstances = 0;
+  public spotInstances = 0;
+  public scheduledInstances = 0;
+  public eksClusters = 0;
+  public detchedElasticIps = 0;
 
-  public loadingRunningInstances: boolean = true;
-  public loadingStoppedInstances: boolean = true;
-  public loadingTerminatedInstances: boolean = true;
-  public loadingReservedInstances: boolean = true;
-  public loadingSpotInstances: boolean = true;
-  public loadingScheduledInstances: boolean = true;
-  public loadingDetachedIps: boolean = true;
-  public loadingLambdaFunctions: boolean = true;
-  public loadingEcsClusters: boolean = true;
-  public loadingEcsTasks: boolean = true;
-  public loadingEcsServices: boolean = true;
-  public loadingEksClusters: boolean = true;
-  public loadingInstancesPrivacyChart: boolean = true;
-  public loadingInstancesFamilyChart: boolean = true;
-  public loadingCostPerInstanceTypeChart: boolean = true;
-  public loadingLambdaInvocationsChart: boolean = true;
-  public loadingLambdaErrorsChart: boolean = true;
+  public loadingRunningInstances = true;
+  public loadingStoppedInstances = true;
+  public loadingTerminatedInstances = true;
+  public loadingReservedInstances = true;
+  public loadingSpotInstances = true;
+  public loadingScheduledInstances = true;
+  public loadingDetachedIps = true;
+  public loadingLambdaFunctions = true;
+  public loadingEcsClusters = true;
+  public loadingEcsTasks = true;
+  public loadingEcsServices = true;
+  public loadingEksClusters = true;
+  public loadingInstancesPrivacyChart = true;
+  public loadingInstancesFamilyChart = true;
+  public loadingCostPerInstanceTypeChart = true;
+  public loadingLambdaInvocationsChart = true;
+  public loadingLambdaErrorsChart = true;
 
   private _subscription: Subscription;
 
@@ -65,14 +65,14 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.instancesFamilyChart.destroy();
       this.instancesPrivacyChart.destroy();
 
-      let tooltips = document.getElementsByClassName('chartist-tooltip')
+      const tooltips = document.getElementsByClassName('chartist-tooltip');
       for (let i = 0; i < tooltips.length; i++) {
-        tooltips[i].outerHTML = ""
+        tooltips[i].outerHTML = '';
       }
       for (let j = 0; j < 3; j++) {
-        let charts = document.getElementsByTagName('svg');
+        const charts = document.getElementsByTagName('svg');
         for (let i = 0; i < charts.length; i++) {
-          charts[i].outerHTML = ""
+          charts[i].outerHTML = '';
         }
       }
 
@@ -96,16 +96,16 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.loadingSpotInstances = true;
       this.loadingScheduledInstances = true;
       this.loadingDetachedIps = true;
-      this.loadingLambdaFunctions= true;
-      this.loadingEcsClusters= true;
+      this.loadingLambdaFunctions = true;
+      this.loadingEcsClusters = true;
       this.loadingEcsTasks = true;
       this.loadingEcsServices = true;
-      this.loadingEksClusters= true;
+      this.loadingEksClusters = true;
       this.loadingInstancesPrivacyChart = true;
-      this.loadingInstancesFamilyChart= true;
-      this.loadingCostPerInstanceTypeChart= true;
-      this.loadingLambdaInvocationsChart= true;
-      this.loadingLambdaErrorsChart= true;
+      this.loadingInstancesFamilyChart = true;
+      this.loadingCostPerInstanceTypeChart = true;
+      this.loadingLambdaInvocationsChart = true;
+      this.loadingLambdaErrorsChart = true;
 
       this.initState();
     });
@@ -115,8 +115,8 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
      this._subscription.unsubscribe();
    }
 
-  private initState(){
-    this.lambdaFunctions = {}
+  private initState() {
+    this.lambdaFunctions = {};
 
     this.awsService.getDetachedElasticIps().subscribe(data => {
       this.detchedElasticIps = data;
@@ -137,14 +137,14 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.loadingInstancesPrivacyChart = false;
       this.loadingInstancesFamilyChart = false;
 
-      let labels = [];
-      let series = [];
-      let colors = []
+      const labels = [];
+      const series = [];
+      const colors = [];
       Object.keys(data.family).forEach(key => {
         labels.push(key);
         series.push(data.family[key]);
         colors.push(this.getRandomColor());
-      })
+      });
 
       this.showInstancesPrivacy([data.public, data.private]);
 
@@ -183,27 +183,27 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.awsService.getLambdaInvocationMetrics().subscribe(data => {
-      let labels = [];
+      const labels = [];
       data.forEach(period => {
-        labels.push(new Date(period.timestamp).toLocaleString('en-us', { month: 'long' }))
-      })
+        labels.push(new Date(period.timestamp).toLocaleString('en-us', { month: 'long' }));
+      });
 
-      let series = []
+      const series = [];
       for (let i = 0; i < labels.length; i++) {
-        let serie = []
+        const serie = [];
         for (let j = 0; j < labels.length; j++) {
-          let item = data[j].metrics[i]
-          if(item){
+          const item = data[j].metrics[i];
+          if (item) {
             serie.push({
               meta: item.label, value: item.value
-            })
+            });
           } else {
             serie.push({
               meta: 'others', value: 0
-            })
+            });
           }
         }
-        series.push(serie)
+        series.push(serie);
       }
 
       this.loadingLambdaInvocationsChart = false;
@@ -229,27 +229,27 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.awsService.getLambdaErrors().subscribe(data => {
-      let labels = [];
+      const labels = [];
       data.forEach(period => {
-        labels.push(new Date(period.timestamp).toISOString().split('T')[0])
-      })
+        labels.push(new Date(period.timestamp).toISOString().split('T')[0]);
+      });
 
-      let series = []
+      const series = [];
       for (let i = 0; i < labels.length; i++) {
-        let serie = []
+        const serie = [];
         for (let j = 0; j < labels.length; j++) {
-          let item = data[j].metrics[i]
-          if(item){
+          const item = data[j].metrics[i];
+          if (item) {
             serie.push({
               meta: item.label, value: item.value
-            })
+            });
           } else {
             serie.push({
               meta: 'others', value: 0
-            })
+            });
           }
         }
-        series.push(serie)
+        series.push(serie);
       }
 
       this.loadingLambdaErrorsChart = false;
@@ -276,10 +276,10 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.awsService.getSpotInstances().subscribe(data => {
       this.spotInstances = data;
-      this.loadingSpotInstances= false;
+      this.loadingSpotInstances = false;
     }, err => {
       this.spotInstances = 0;
-      this.loadingSpotInstances= false;
+      this.loadingSpotInstances = false;
     });
 
     this.awsService.getEKSClusters().subscribe(data => {
@@ -291,27 +291,27 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.awsService.getCostPerInstanceType().subscribe(data => {
-      let periods = [];
-      let series = []
+      const periods = [];
+      const series = [];
       data.history.forEach(period => {
         periods.push(new Date(period.start).toLocaleString('en-us', { month: 'long' }));
       });
 
       for (let i = 0; i < periods.length; i++) {
-        let serie = []
+        const serie = [];
         for (let j = 0; j < periods.length; j++) {
-          let item = data.history[j].groups[i]
-          if(item){
+          const item = data.history[j].groups[i];
+          if (item) {
             serie.push({
               meta: item.key, value: item.amount.toFixed(2)
-            })
-          }else{
+            });
+          } else {
             serie.push({
               meta: 'others', value: 0
-            })
+            });
           }
         }
-        series.push(serie)
+        series.push(serie);
       }
 
       this.loadingCostPerInstanceTypeChart = false;
@@ -327,15 +327,15 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
     // Nine Zeroes for Billions
     return Math.abs(Number(labelValue)) >= 1.0e+9
 
-      ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
-      // Six Zeroes for Millions 
+      ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + ' B'
+      // Six Zeroes for Millions
       : Math.abs(Number(labelValue)) >= 1.0e+6
 
-        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + ' M'
         // Three Zeroes for Thousands
         : Math.abs(Number(labelValue)) >= 1.0e+3
 
-          ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+          ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + ' K'
 
           : Math.abs(Number(labelValue));
 
@@ -346,13 +346,13 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {}
 
   private showCostPerInstanceType(labels, series) {
-    let scope = this;
-    var costHistory = {
+    const scope = this;
+    const costHistory = {
       labels: labels,
       series: series
-    }
+    };
 
-    var optionChartCostHistory = {
+    const optionChartCostHistory = {
       plugins: [
         Chartist.plugins.tooltip()
       ],
@@ -363,25 +363,25 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
       axisY: {
         offset: 80,
         labelInterpolationFnc: function(value) {
-          return scope.formatNumber(value)
+          return scope.formatNumber(value);
         },
       },
-      height: "245px",
-    }
+      height: '245px',
+    };
 
     this.costPerInstanceTypeChart = new Chartist.Bar('.costPerInstanceTypeChart', costHistory, optionChartCostHistory);
 
   }
 
-  private showInstancesPrivacy(series){
-    var canvas : any = document.getElementById('instancesPrivacyChart');
-    var ctx = canvas.getContext('2d');
+  private showInstancesPrivacy(series) {
+    const canvas: any = document.getElementById('instancesPrivacyChart');
+    const ctx = canvas.getContext('2d');
     this.instancesPrivacyChart = new Chart(ctx, {
         type: 'pie',
         data: {
           datasets: [{
             data: series,
-            backgroundColor: ['#36A2EB','#4BC0C0']
+            backgroundColor: ['#36A2EB', '#4BC0C0']
           }],
           labels: ['Public Instances', 'Private Instances']
         },
@@ -389,8 +389,8 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  private showLambdaErrors(labels, series){
-    let scope = this;
+  private showLambdaErrors(labels, series) {
+    const scope = this;
     this.lambdaErrorsChart = new Chartist.Line('.lambdaErrorsChart', {
       labels: labels,
       series: series
@@ -401,11 +401,11 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
       axisY: {
         offset: 80,
         labelInterpolationFnc: function(value) {
-          return scope.formatNumber(value)
+          return scope.formatNumber(value);
         }
       }
     }).on('draw', function(data) {
-      if(data.type === 'line') {
+      if (data.type === 'line') {
         data.element.attr({
           style: 'stroke-width: 1px'
         });
@@ -413,8 +413,8 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  private showLambdaInvocations(labels, series){
-    let scope = this;
+  private showLambdaInvocations(labels, series) {
+    const scope = this;
     this.lambdaInvocationsChart = new Chartist.Bar('.lambdaInvocationsChart', {
       labels: labels,
       series: series
@@ -426,11 +426,11 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
       axisY: {
         offset: 80,
         labelInterpolationFnc: function(value) {
-          return scope.formatNumber(value)
+          return scope.formatNumber(value);
         }
       }
     }).on('draw', function(data) {
-      if(data.type === 'bar') {
+      if (data.type === 'bar') {
         data.element.attr({
           style: 'stroke-width: 30px'
         });
@@ -439,17 +439,17 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private getRandomColor() {
-    var letters = '789ABCD'.split('');
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
+    const letters = '789ABCD'.split('');
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
       color += letters[Math.round(Math.random() * 6)];
     }
     return color;
   }
 
   private showInstanceFamilies(labels, series, colors) {
-    var color = Chart.helpers.color;
-    var config = {
+    const color = Chart.helpers.color;
+    const config = {
       data: {
         datasets: [{
           data: series,
@@ -480,7 +480,7 @@ export class AwsComputeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     };
 
-    var ctx = document.getElementById('instancesFamilyChart');
+    const ctx = document.getElementById('instancesFamilyChart');
     this.instancesFamilyChart = new Chart.PolarArea(ctx, config);
   }
 
