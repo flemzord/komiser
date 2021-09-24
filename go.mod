@@ -1,12 +1,11 @@
 module github.com/flemzord/komiser
 
-go 1.13
+go 1.16
 
 require (
 	cloud.google.com/go v0.37.5-0.20190430080321-149c87153689
 	github.com/aws/aws-sdk-go-v2 v0.7.1-0.20190410190156-80eda21e3854
 	github.com/digitalocean/godo v1.19.1-0.20190722163849-4677563d2a4e
-	github.com/elazarl/go-bindata-assetfs v1.0.1-0.20180223160309-38087fe4dafb
 	github.com/go-redis/redis v6.15.3-0.20190419151012-721116ac0e91+incompatible
 	github.com/golang/protobuf v1.3.2-0.20190409050943-e91709a02e0e // indirect
 	github.com/google/go-querystring v1.0.1-0.20190318165438-c8c88dbee036 // indirect

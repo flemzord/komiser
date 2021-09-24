@@ -1,7 +1,9 @@
 package main
 
 import (
+	"embed"
 	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -12,16 +14,18 @@ import (
 	. "github.com/flemzord/komiser/handlers/gcp"
 	. "github.com/flemzord/komiser/handlers/ovh"
 	. "github.com/flemzord/komiser/services/cache"
-	. "github.com/flemzord/komiser/services/ini"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/urfave/cli"
 )
 
 const (
-	DEFAULT_PORT     = 3000
-	DEFAULT_DURATION = 30
+	DefaultPort     = 3000
+	DefaultDuration = 30
 )
+
+//go:embed dist
+var distFiles embed.FS
 
 func startServer(port int, cache Cache, dataset string, multiple bool) {
 	cache.Connect()
@@ -187,7 +191,8 @@ func startServer(port int, cache Cache, dataset string, multiple bool) {
 	r.HandleFunc("/digitalocean/snapshots", digitaloceanHandler.SnapshotsHandler)
 	r.HandleFunc("/digitalocean/volumes", digitaloceanHandler.VolumesHandler)
 
-	r.PathPrefix("/").Handler(http.FileServer(assetFS()))
+	sub, _ := fs.Sub(distFiles, "dist")
+	r.PathPrefix("/").Handler(http.FileServer(http.FS(sub)))
 
 	headersOk := handlers.AllowedHeaders([]string{"profile"})
 	loggedRouter := handlers.LoggingHandler(os.Stdout, handlers.CORS(headersOk)(r))
@@ -208,8 +213,8 @@ func main() {
 	app.Compiled = time.Now()
 	app.Authors = []cli.Author{
 		cli.Author{
-			Name:  "Mohamed Labouardy",
-			Email: "mohamed@labouardy.com",
+			Name:  "Maxence Maireaux",
+			Email: "maxence@maireaux.fr",
 		},
 	}
 	app.Commands = []cli.Command{
@@ -220,12 +225,12 @@ func main() {
 				cli.IntFlag{
 					Name:  "port, p",
 					Usage: "Server port",
-					Value: DEFAULT_PORT,
+					Value: DefaultPort,
 				},
 				cli.IntFlag{
 					Name:  "duration, d",
 					Usage: "Cache expiration time",
-					Value: DEFAULT_DURATION,
+					Value: DefaultDuration,
 				},
 				cli.StringFlag{
 					Name:  "redis, r",
@@ -250,10 +255,10 @@ func main() {
 				var cache Cache
 
 				if port == 0 {
-					port = DEFAULT_PORT
+					port = DefaultPort
 				}
 				if duration == 0 {
-					duration = DEFAULT_DURATION
+					duration = DefaultDuration
 				}
 
 				if redis == "" {

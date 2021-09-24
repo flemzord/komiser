@@ -5,7 +5,6 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/ecs"
-	. "github.com/flemzord/komiser/models/aws"
 )
 
 func (aws AWS) DescribeECS(cfg aws.Config) (map[string]int, error) {
