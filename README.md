@@ -1,4 +1,4 @@
-**Komiser is back 🎉 and we're looking for maintainers to work on the new roadmap, if you're interested, join us on our Slack community channel: https://community.komiser.io**
+**Komiser is back 🎉 and rework all of this project !**
 
 <a href="https://komiser.io">
   <img src="https://s3.eu-west-3.amazonaws.com/komiser-assets/images/logo.png" width="200" align="right" alt="Amp Logo">

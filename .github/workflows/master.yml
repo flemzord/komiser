@@ -38,7 +38,7 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: frontend-dist
-          path: ./dist
+          path: ./dashboard/dist
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
