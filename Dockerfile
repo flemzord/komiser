@@ -1,3 +1,3 @@
 FROM alpine
-COPY komiser /
-ENTRYPOINT ["/komiser", "start"]
+COPY komiser /usr/local/bin/komiser
+ENTRYPOINT ["komiser", "start"]

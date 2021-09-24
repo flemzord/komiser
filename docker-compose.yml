@@ -1,0 +1,13 @@
+version: '3.6'
+services:
+  redis:
+    image: "redis:alpine"
+  komiser:
+    image: "ghcr.io/flemzord/komiser:latest"
+    command: "komiser start --port 3000 --redis redis:6379 --duration 30 --multiple"
+    ports:
+      - "3000:3000"
+    environment:
+      AWS_ACCESS_KEY_ID: ""
+      AWS_SECRET_ACCESS_KEY: ""
+      AWS_DEFAULT_REGION: ""
