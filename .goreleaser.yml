@@ -65,7 +65,7 @@ docker_manifests:
       - ghcr.io/flemzord/komiser:{{ .Version }}-arm64
 
 brews:
-  - name: lsc
+  - name: komiser
     goarm: 6
     tap:
       owner: flemzord
