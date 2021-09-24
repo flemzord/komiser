@@ -1,0 +1,53 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Master
+jobs:
+  build_frontend:
+    name: 'Build Frontend'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: "./dashboard/"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '10'
+      - run: yarn install
+      - run: yarn run build
+      - uses: actions/upload-artifact@master
+        with:
+          name: frontend-dist
+          path: dashboard/dist
+  build_cli:
+    name: 'Build Cli'
+    needs: build_frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.10' # The Go version to download (if necessary) and use.
+      - run: go mod download
+      - run: |
+          go get github.com/jteeuwen/go-bindata/...
+          go get github.com/elazarl/go-bindata-assetfs/...
+      - uses: actions/download-artifact@master
+        with:
+          name: frontend-dist
+          path: ./dist
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: build --parallelism 4 --rm-dist --skip-validate --snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - run: go get github.com/mitchellh/gox
+#      - run: gox -osarch="linux/amd64 windows/amd64 darwin/amd64"

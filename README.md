@@ -6,8 +6,8 @@
 
 <a href="https://komiser.io"><img alt="Amp" src="https://s3.eu-west-3.amazonaws.com/komiser-assets/images/icon.png" width="120" valign="middle"></a>
 
-[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/mlabouardy/komiser/blob/master/LICENSE) [![Docker Stars](https://img.shields.io/docker/pulls/mlabouardy/komiser.svg)](https://hub.docker.com/r/mlabouardy/komiser/) 
-[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE) [![CircleCI](https://circleci.com/gh/mlabouardy/komiser/tree/master.svg?style=svg&circle-token=d35b1c7447995e60909b24fd316fef0988e76bc8)](https://circleci.com/gh/mlabouardy/komiser/tree/master) [![Docker Stars](https://img.shields.io/github/issues/mlabouardy/komiser.svg)](https://github.com/mlabouardy/komiser/issues) [<img src="https://img.shields.io/badge/slack-@komiser-yellow.svg?logo=slack">](https://mohamedlabouardy.typeform.com/to/p5qrA) <a href="https://github.com/mlabouardy/komiser#backers"><img src="https://opencollective.com/komiser/backers/badge.svg" alt="OpenCollective"></a>  <a href="https://github.com/mlabouardy/komiser#sponsors"><img src="https://opencollective.com/komiser/sponsors/badge.svg" alt="OpenCollective"></a> <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fmlabouardy%2Fkomiser?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmlabouardy%2Fkomiser.svg?type=shield"/></a> <span class="badge-patreon"><a href="https://patreon.com/komiser" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span> <span class="badge-opencollective"><a href="https://opencollective.com/komiser" title="Donate to this project using Open Collective"><img src="https://img.shields.io/badge/open%20collective-donate-yellow.svg" alt="Open Collective donate button" /></a></span>
+[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/flemzord/komiser/blob/master/LICENSE) [![Docker Stars](https://img.shields.io/docker/pulls/flemzord/komiser.svg)](https://hub.docker.com/r/flemzord/komiser/) 
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE) [![CircleCI](https://circleci.com/gh/flemzord/komiser/tree/master.svg?style=svg&circle-token=d35b1c7447995e60909b24fd316fef0988e76bc8)](https://circleci.com/gh/flemzord/komiser/tree/master) [![Docker Stars](https://img.shields.io/github/issues/flemzord/komiser.svg)](https://github.com/flemzord/komiser/issues) [<img src="https://img.shields.io/badge/slack-@komiser-yellow.svg?logo=slack">](https://mohamedlabouardy.typeform.com/to/p5qrA) <a href="https://github.com/flemzord/komiser#backers"><img src="https://opencollective.com/komiser/backers/badge.svg" alt="OpenCollective"></a>  <a href="https://github.com/flemzord/komiser#sponsors"><img src="https://opencollective.com/komiser/sponsors/badge.svg" alt="OpenCollective"></a> <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fflemzord%2Fkomiser?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fflemzord%2Fkomiser.svg?type=shield"/></a> <span class="badge-patreon"><a href="https://patreon.com/komiser" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span> <span class="badge-opencollective"><a href="https://opencollective.com/komiser" title="Donate to this project using Open Collective"><img src="https://img.shields.io/badge/open%20collective-donate-yellow.svg" alt="Open Collective donate button" /></a></span>
 
 
 Stay under budget by uncovering hidden costs, monitoring increases in spend, and making impactful changes based on custom recommendations.
@@ -16,7 +16,7 @@ Stay under budget by uncovering hidden costs, monitoring increases in spend, and
 
 *Komiser EE is available in private beta test stage, sign in for free at [https://cloud.komiser.io](https://cloud.komiser.io)*
 
-[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow%20%40Komiser)](https://twitter.com/komiseree) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Optimize%20Cost%20and%20Security%20on%20AWS&url=https://github.com/mlabouardy/komiser&via=mlabouardy&hashtags=komiser,aws,gcp,cloud,serverless,devops) 
+[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow%20%40Komiser)](https://twitter.com/komiseree) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Optimize%20Cost%20and%20Security%20on%20AWS&url=https://github.com/flemzord/komiser&via=flemzord&hashtags=komiser,aws,gcp,cloud,serverless,devops) 
 
 **Highlights**
 
@@ -37,7 +37,7 @@ Stay under budget by uncovering hidden costs, monitoring increases in spend, and
 
 ## Sponsors
 
-Does your company use Komiser?  Ask your manager or marketing team if your company would be interested in supporting our project.  Support will allow the maintainers to dedicate more time for maintenance and new features for everyone.  Also, your company's logo will show [on GitHub](https://github.com/mlabouardy/komiser#readme) and on [our site](https://komiser.io) - who doesn't want a little extra exposure?  [Here's the info](https://opencollective.com/komiser#sponsor).
+Does your company use Komiser?  Ask your manager or marketing team if your company would be interested in supporting our project.  Support will allow the maintainers to dedicate more time for maintenance and new features for everyone.  Also, your company's logo will show [on GitHub](https://github.com/flemzord/komiser#readme) and on [our site](https://komiser.io) - who doesn't want a little extra exposure?  [Here's the info](https://opencollective.com/komiser#sponsor).
 
 ## Download
 
@@ -71,14 +71,14 @@ brew install komiser
 ### Docker:
 
 ```
-docker run -d -p 3000:3000 -e AWS_ACCESS_KEY_ID="" -e AWS_SECRET_ACCESS_KEY="" -e AWS_DEFAULT_REGION="" --name komiser mlabouardy/komiser:2.4.0
+docker run -d -p 3000:3000 -e AWS_ACCESS_KEY_ID="" -e AWS_SECRET_ACCESS_KEY="" -e AWS_DEFAULT_REGION="" --name komiser flemzord/komiser:2.4.0
 ```
 
 ## How to use
 
 ### AWS
 
-* Create an IAM user with the following IAM [policy](https://raw.githubusercontent.com/mlabouardy/komiser/master/policy.json):
+* Create an IAM user with the following IAM [policy](https://raw.githubusercontent.com/flemzord/komiser/master/policy.json):
 
 ```
 wget https://komiser.s3.amazonaws.com/policy.json
@@ -267,7 +267,7 @@ See our documentation on [docs.komiser.io](https://docs.komiser.io). The source 
 
 ## Bugs and feature requests
 
-Have a bug or a feature request? Please first read the issue guidelines and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/mlabouardy/komiser/issues/new).
+Have a bug or a feature request? Please first read the issue guidelines and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/flemzord/komiser/issues/new).
 
 ## Roadmap and contributing
 
@@ -275,14 +275,14 @@ Komiser is written in Golang and is MIT licensed - contributions are welcomed wh
 
 ## Users
 
-If you'd like to have your company represented and are using Komiser please give formal written permission below via a comment on this [thread](https://github.com/mlabouardy/komiser/issues/76) or  via email to contact@komiser.io.
+If you'd like to have your company represented and are using Komiser please give formal written permission below via a comment on this [thread](https://github.com/flemzord/komiser/issues/76) or  via email to contact@komiser.io.
 
 We will need a URL to a svg or png logo, a text title and a company URL.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/mlabouardy/komiser/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/flemzord/komiser/tags). 
 
 
 ## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmlabouardy%2Fkomiser.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmlabouardy%2Fkomiser?ref=badge_large)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fflemzord%2Fkomiser.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fflemzord%2Fkomiser?ref=badge_large)
