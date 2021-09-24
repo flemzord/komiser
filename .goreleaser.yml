@@ -66,3 +66,12 @@ docker_manifests:
     image_templates:
       - ghcr.io/flemzord/komiser:{{ .Version }}-amd64
       - ghcr.io/flemzord/komiser:{{ .Version }}-arm64
+
+brews:
+  - name: lsc
+    goarm: 6
+    tap:
+      owner: flemzord
+      name: komiser
+    install: |
+      bin.install "komiser"
