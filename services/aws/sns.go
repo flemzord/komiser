@@ -5,7 +5,7 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/sns"
-	. "github.com/mlabouardy/komiser/models/aws"
+	. "github.com/flemzord/komiser/models/aws"
 )
 
 func (aws AWS) DescribeSNSTopics(cfg aws.Config) (int64, error) {

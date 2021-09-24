@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	. "github.com/mlabouardy/komiser/models/gcp"
+	. "github.com/flemzord/komiser/models/gcp"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	container "google.golang.org/api/container/v1"

@@ -1,5 +1,5 @@
 FROM alpine:3.9.4
-MAINTAINER mlabouardy <mohamed@labouardy.com>
+MAINTAINER flemzord <mohamed@labouardy.com>
 
 ENV VERSION 2.4.0
 ENV PORT 3000

@@ -7,8 +7,8 @@ import (
 	"os"
 
 	"github.com/digitalocean/godo"
-	. "github.com/mlabouardy/komiser/services/cache"
-	. "github.com/mlabouardy/komiser/services/digitalocean"
+	. "github.com/flemzord/komiser/services/cache"
+	. "github.com/flemzord/komiser/services/digitalocean"
 	"golang.org/x/oauth2"
 )
 

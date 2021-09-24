@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	. "github.com/mlabouardy/komiser/services/cache"
-	. "github.com/mlabouardy/komiser/services/gcp"
+	. "github.com/flemzord/komiser/services/cache"
+	. "github.com/flemzord/komiser/services/gcp"
 )
 
 type GCPHandler struct {

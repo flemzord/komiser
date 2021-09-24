@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	. "github.com/mlabouardy/komiser/models/gcp"
+	. "github.com/flemzord/komiser/models/gcp"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	serviceusage "google.golang.org/api/serviceusage/v1"

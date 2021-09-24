@@ -8,7 +8,7 @@ import (
 
 	awsClient "github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/costexplorer"
-	. "github.com/mlabouardy/komiser/models/aws"
+	. "github.com/flemzord/komiser/models/aws"
 )
 
 func (aws AWS) DescribeCostAndUsage(cfg awsClient.Config) (Bill, error) {

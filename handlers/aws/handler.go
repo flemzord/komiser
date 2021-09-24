@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	. "github.com/mlabouardy/komiser/services/aws"
-	. "github.com/mlabouardy/komiser/services/cache"
+	. "github.com/flemzord/komiser/services/aws"
+	. "github.com/flemzord/komiser/services/cache"
 )
 
 type AWSHandler struct {

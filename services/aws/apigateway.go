@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/apigateway"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatch"
-	. "github.com/mlabouardy/komiser/models/aws"
+	. "github.com/flemzord/komiser/models/aws"
 )
 
 func (aws AWS) GetRestAPIs(cfg aws.Config) (int, error) {

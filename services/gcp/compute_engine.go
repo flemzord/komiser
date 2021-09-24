@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	. "github.com/mlabouardy/komiser/models/gcp"
+	. "github.com/flemzord/komiser/models/gcp"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	compute "google.golang.org/api/compute/v1"

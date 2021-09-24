@@ -1,4 +1,4 @@
-module github.com/mlabouardy/komiser
+module github.com/flemzord/komiser
 
 go 1.13
 

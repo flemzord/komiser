@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatch"
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
-	. "github.com/mlabouardy/komiser/models/aws"
+	. "github.com/flemzord/komiser/models/aws"
 )
 
 func (aws AWS) DescribeQueues(cfg aws.Config) (int64, error) {

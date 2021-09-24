@@ -7,14 +7,14 @@ import (
 	"os"
 	"time"
 
+	. "github.com/flemzord/komiser/handlers/aws"
+	. "github.com/flemzord/komiser/handlers/digitalocean"
+	. "github.com/flemzord/komiser/handlers/gcp"
+	. "github.com/flemzord/komiser/handlers/ovh"
+	. "github.com/flemzord/komiser/services/cache"
+	. "github.com/flemzord/komiser/services/ini"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	. "github.com/mlabouardy/komiser/handlers/aws"
-	. "github.com/mlabouardy/komiser/handlers/digitalocean"
-	. "github.com/mlabouardy/komiser/handlers/gcp"
-	. "github.com/mlabouardy/komiser/handlers/ovh"
-	. "github.com/mlabouardy/komiser/services/cache"
-	. "github.com/mlabouardy/komiser/services/ini"
 	"github.com/urfave/cli"
 )
 

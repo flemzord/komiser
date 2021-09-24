@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"cloud.google.com/go/bigquery"
-	. "github.com/mlabouardy/komiser/models/gcp"
+	. "github.com/flemzord/komiser/models/gcp"
 	"google.golang.org/api/iterator"
 )
 

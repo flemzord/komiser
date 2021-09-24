@@ -5,7 +5,7 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
-	. "github.com/mlabouardy/komiser/models/aws"
+	. "github.com/flemzord/komiser/models/aws"
 )
 
 func (aws AWS) DescribeDynamoDBTables(cfg aws.Config) (map[string]interface{}, error) {

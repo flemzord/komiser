@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/aws/aws-sdk-go-v2/aws/external"
-	. "github.com/mlabouardy/komiser/services/ini"
+	. "github.com/flemzord/komiser/services/ini"
 )
 
 func (handler *AWSHandler) ConfigProfilesHandler(w http.ResponseWriter, r *http.Request) {
