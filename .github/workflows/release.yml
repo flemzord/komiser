@@ -21,13 +21,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           options: '--tags=${{ steps.get_version.outputs.VERSION }} --override'
-  build_frontend:
-    name: 'Build Frontend'
+  build:
+    name: 'Build'
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: "./dashboard/"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -35,26 +31,15 @@ jobs:
         with:
           node-version: '14'
       - run: yarn install
+        working-directory: "./dashboard/"
       - run: yarn run build
-      - uses: actions/upload-artifact@master
-        with:
-          name: frontend-dist
-          path: dashboard/dist
-  build_cli:
-    name: 'Build Cli'
-    needs: build_frontend
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+        working-directory: "./dashboard/"
+      - run: yarn run generate
+        working-directory: "./dashboard/"
       - uses: actions/setup-go@v2
         with:
           go-version: '^1.16' # The Go version to download (if necessary) and use.
       - run: go mod download
-      - uses: actions/download-artifact@master
-        with:
-          name: frontend-dist
-          path: ./dashboard/dist
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
