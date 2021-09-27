@@ -6,7 +6,7 @@ export default {
   target: 'static',
 
   server: {
-    port: 8000 // default: 3000
+    port: 8000, // default: 3000
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -16,20 +16,16 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/logo.png' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo.png' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+  css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+  plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -51,30 +47,27 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.NODE_ENV === 'dev'
-      ? 'http://localhost:3000'
-      : ''
+    baseURL: process.env.NODE_ENV === 'dev' ? 'http://localhost:3000' : '',
   },
 
   tailwindcss: {
-    exposeConfig: true
+    exposeConfig: true,
   },
 
   fontawesome: {
     icons: {
       solid: true,
-      brands: true
-    }
+      brands: true,
+    },
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
-    }
+      lang: 'en',
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
+  build: {},
 }

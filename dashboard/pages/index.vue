@@ -5,20 +5,23 @@
 
       <div class="mt-4">
         <div class="flex flex-wrap -mx-6">
-
           <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
-            <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
+            <div
+              class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white"
+            >
               <div class="p-3 rounded-full bg-indigo-600 bg-opacity-75">
                 <font-awesome-icon :icon="['fas', 'dollar-sign']" />
               </div>
 
               <div class="mx-5">
                 <h4 class="text-2xl font-semibold text-gray-700">
-                  <money-format :value="currentCost"
-                                locale='en'
-                                currency-code='USD'
-                                subunits-value=true
-                                hide-subunits=true>
+                  <money-format
+                    :value="currentCost"
+                    locale="en"
+                    currency-code="USD"
+                    subunits-value="true"
+                    hide-subunits="true"
+                  >
                   </money-format>
                 </h4>
                 <div class="text-gray-500">Current month-to-date balance</div>
@@ -27,7 +30,9 @@
           </div>
 
           <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
-            <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
+            <div
+              class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white"
+            >
               <div class="p-3 rounded-full bg-indigo-600 bg-opacity-75">
                 <font-awesome-icon :icon="['fas', 'ticket-alt']" />
               </div>
@@ -43,27 +48,59 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
 
-      <div class="mt-8">
-
-      </div>
+      <div class="mt-8"></div>
 
       <div class="flex flex-col mt-8">
-        <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div
+          class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+        >
           <div
-            class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+            class="
+              align-middle
+              inline-block
+              min-w-full
+              shadow
+              overflow-hidden
+              sm:rounded-lg
+              border-b border-gray-200
+            "
+          >
             <table class="min-w-full">
               <thead>
                 <tr>
                   <th
-                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    class="
+                      px-6
+                      py-3
+                      border-b border-gray-200
+                      bg-gray-50
+                      text-left text-xs
+                      leading-4
+                      font-medium
+                      text-gray-500
+                      uppercase
+                      tracking-wider
+                    "
+                  >
                     Name
                   </th>
                   <th
-                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    class="
+                      px-6
+                      py-3
+                      border-b border-gray-200
+                      bg-gray-50
+                      text-left text-xs
+                      leading-4
+                      font-medium
+                      text-gray-500
+                      uppercase
+                      tracking-wider
+                    "
+                  >
                     Amount
                   </th>
                 </tr>
@@ -71,28 +108,46 @@
 
               <tbody class="bg-white">
                 <tr v-for="item in groupsCostHistory" :key="item.key">
-                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      whitespace-no-wrap
+                      border-b border-gray-200
+                    "
+                  >
                     <div class="flex items-center">
-<!--                      <div class="flex-shrink-0 h-10 w-10">-->
-<!--                        <img class="h-10 w-10 rounded-full"-->
-<!--                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"-->
-<!--                             alt="">-->
-<!--                      </div>-->
+                      <!--                      <div class="flex-shrink-0 h-10 w-10">-->
+                      <!--                        <img class="h-10 w-10 rounded-full"-->
+                      <!--                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"-->
+                      <!--                             alt="">-->
+                      <!--                      </div>-->
 
                       <div class="ml-4">
-                        <div class="text-sm leading-5 font-medium text-gray-900">{{ item.key }}
+                        <div
+                          class="text-sm leading-5 font-medium text-gray-900"
+                        >
+                          {{ item.key }}
                         </div>
                       </div>
                     </div>
                   </td>
 
-                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      whitespace-no-wrap
+                      border-b border-gray-200
+                    "
+                  >
                     <div class="text-sm leading-5 text-gray-900">
-                      <money-format :value="item.amount"
-                                    locale='en'
-                                    currency-code='USD'
-                                    subunits-value=true
-                                    hide-subunits=true
+                      <money-format
+                        :value="item.amount"
+                        locale="en"
+                        currency-code="USD"
+                        subunits-value="true"
+                        hide-subunits="true"
                       />
                     </div>
                   </td>
@@ -106,33 +161,40 @@
   </main>
 </template>
 
-
 <script>
 import MoneyFormat from 'vue-money-format'
 
 export default {
   components: {
-    'money-format': MoneyFormat
+    'money-format': MoneyFormat,
   },
   data() {
     return {
-      currentCost: "loading",
-      openedTicket: "loading",
-      resolvedTicket: "loading",
-      costHistory: "loading",
-    };
+      currentCost: 'loading',
+      openedTicket: 'loading',
+      resolvedTicket: 'loading',
+      costHistory: 'loading',
+    }
   },
-  async created () {
-    this.currentCost = await this.$axios.$get('/aws/cost/current', { progress: false })
-    this.openedTicket = await this.$axios.$get('/aws/support/open', { progress: false })
-    this.resolvedTicket = await this.$axios.$get('/aws/support/history', { progress: false })
-    this.costHistory = await this.$axios.$get('/aws/cost/history', { progress: false })
+  async created() {
+    this.currentCost = await this.$axios.$get('/aws/cost/current', {
+      progress: false,
+    })
+    this.openedTicket = await this.$axios.$get('/aws/support/open', {
+      progress: false,
+    })
+    this.resolvedTicket = await this.$axios.$get('/aws/support/history', {
+      progress: false,
+    })
+    this.costHistory = await this.$axios.$get('/aws/cost/history', {
+      progress: false,
+    })
   },
   computed: {
-    groupsCostHistory: function() {
+    groupsCostHistory: function () {
       return this.costHistory[this.costHistory.length - 1].groups
       // return data.find( item => item.amount > 0);
-    }
-  }
+    },
+  },
 }
 </script>
