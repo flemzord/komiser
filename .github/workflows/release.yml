@@ -2,10 +2,6 @@ on:
   release:
     types: [published]
 
-permissions:
-  contents: write
-  packages: write
-
 name: Release
 jobs:
   release:
