@@ -5,6 +5,10 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  generate: {
+    dir: '../src/server/dashboard'
+  },
+
   server: {
     port: 8000, // default: 3000
   },
@@ -47,7 +51,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.NODE_ENV === 'dev' ? 'http://localhost:3000' : '',
+    baseURL: process.env.NODE_ENV === 'dev' ? 'http://localhost:3010' : '',
   },
 
   tailwindcss: {
