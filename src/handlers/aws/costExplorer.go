@@ -2,43 +2,29 @@ package aws
 
 import (
 	"github.com/aws/aws-sdk-go-v2/aws/external"
-	"net/http"
+	"github.com/gofiber/fiber/v2"
 )
 
-func (handler *AWSHandler) CurrentCostHandler(w http.ResponseWriter, r *http.Request) {
-	profile := r.Header.Get("profile")
+func (handler *AWSHandler) CurrentCostHandler(c *fiber.Ctx) error {
 	cfg, err := external.LoadDefaultAWSConfig()
-
-	if handler.multiple {
-		cfg, err = external.LoadDefaultAWSConfig(external.WithSharedConfigProfile(profile))
-		if err != nil {
-			respondWithError(w, http.StatusInternalServerError, "Couldn't read "+profile+" profile")
-		}
-	}
 
 	response, err := handler.aws.DescribeCostAndUsage(cfg)
 	if err != nil {
-		respondWithError(w, http.StatusInternalServerError, "ce:GetCostAndUsage is missing")
+		return c.JSON(fiber.Map{"error": "ce:GetCostAndUsage is missing"})
 	} else {
-		respondWithJSON(w, 200, response.Total)
+		return c.JSON(response)
+
 	}
 }
 
-func (handler *AWSHandler) CostAndUsageHandler(w http.ResponseWriter, r *http.Request) {
-	profile := r.Header.Get("profile")
+func (handler *AWSHandler) CostAndUsageHandler(c *fiber.Ctx) error {
 	cfg, err := external.LoadDefaultAWSConfig()
-
-	if handler.multiple {
-		cfg, err = external.LoadDefaultAWSConfig(external.WithSharedConfigProfile(profile))
-		if err != nil {
-			respondWithError(w, http.StatusInternalServerError, "Couldn't read "+profile+" profile")
-		}
-	}
 
 	response, err := handler.aws.DescribeCostAndUsage(cfg)
 	if err != nil {
-		respondWithError(w, http.StatusInternalServerError, "ce:GetCostAndUsage is missing")
+		return c.JSON(fiber.Map{"error": "ce:GetCostAndUsage is missing"})
 	} else {
-		respondWithJSON(w, 200, response.History)
+		return c.JSON(response.Total)
+
 	}
 }

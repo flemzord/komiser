@@ -1,34 +1,34 @@
 package aws
 
 import (
-	"fmt"
+	"github.com/gofiber/fiber/v2"
 	"net/http"
 
 	"github.com/aws/aws-sdk-go-v2/aws/external"
 )
 
-func (handler *AWSHandler) SupportOpenTicketsHandler(w http.ResponseWriter, r *http.Request) {
+func (handler *AWSHandler) SupportOpenTicketsHandler(c *fiber.Ctx) error {
 	cfg, err := external.LoadDefaultAWSConfig()
 
 	response, err := handler.aws.OpenSupportTickets(cfg)
 	if err != nil {
-		fmt.Println(err)
-		respondWithError(w, http.StatusInternalServerError, "support:DescribeCases is missing")
+		return c.JSON(fiber.Map{"error": "support:DescribeCases is missing"})
 	} else {
-		respondWithJSON(w, 200, response)
+		return c.JSON(response)
+
 	}
 }
 
-func (handler *AWSHandler) SupportTicketsInLastSixMonthsHandlers(w http.ResponseWriter, r *http.Request) {
+func (handler *AWSHandler) SupportTicketsInLastSixMonthsHandlers(c *fiber.Ctx) error {
 	cfg, err := external.LoadDefaultAWSConfig()
 
 	response, err := handler.aws.TicketsInLastSixMonthsTickets(cfg)
 	if err != nil {
-		respondWithError(w, http.StatusInternalServerError, "support:DescribeCases is missing")
+		return c.JSON(fiber.Map{"error": "support:DescribeCases is missing"})
 	} else {
-		respondWithJSON(w, 200, response)
-	}
+		return c.JSON(response)
 
+	}
 }
 
 func (handler *AWSHandler) DescribeServiceLimitsChecks(w http.ResponseWriter, r *http.Request) {

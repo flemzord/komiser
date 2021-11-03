@@ -2,15 +2,12 @@ package server
 
 import (
 	"embed"
-	"fmt"
 	. "github.com/flemzord/komiser/src/handlers/aws"
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
+	"github.com/gofiber/fiber/v2"
 	"github.com/spf13/cobra"
 	"io/fs"
 	"log"
 	"net/http"
-	"os"
 )
 
 //go:embed dashboard/*
@@ -20,29 +17,28 @@ func clientHandler() http.Handler {
 	fsys := fs.FS(distFiles)
 	contentStatic, _ := fs.Sub(fsys, "dashboard")
 	return http.FileServer(http.FS(contentStatic))
-
 }
 
 func Server(cmd *cobra.Command, args []string) {
-	port := 3010
-
-	r := mux.NewRouter()
+	port := ":3010"
 
 	awsHandler := NewAWSHandler()
 
-	r.HandleFunc("/aws/cost/current", awsHandler.CurrentCostHandler)
-	r.HandleFunc("/aws/cost/history", awsHandler.CostAndUsageHandler)
-	r.HandleFunc("/aws/support/history", awsHandler.SupportTicketsInLastSixMonthsHandlers)
-	r.HandleFunc("/aws/support/open", awsHandler.SupportOpenTicketsHandler)
+	app := fiber.New()
+	app.Static("/", "./dashboard")
 
-	allowedHeaders := handlers.AllowedHeaders([]string{})
-	loggedRouter := handlers.LoggingHandler(os.Stdout, handlers.CORS(allowedHeaders)(r))
-	r.Handle("/", clientHandler())
+	aws := app.Group("/aws")
 
-	err := http.ListenAndServe(fmt.Sprintf(":%d", port), loggedRouter)
-	if err != nil {
-		log.Fatal(err)
-	} else {
-		log.Printf("Server started on port %d", port)
-	}
+	cost := aws.Group("/cost")
+	cost.Get("/current", awsHandler.CurrentCostHandler)
+	cost.Get("/history", awsHandler.CostAndUsageHandler)
+
+	support := aws.Group("/support")
+	support.Get("history", awsHandler.SupportTicketsInLastSixMonthsHandlers)
+	support.Get("open", awsHandler.SupportOpenTicketsHandler)
+
+	log.Fatal(app.Listen(port))
+
+	//r.HandleFunc("/aws/support/history", awsHandler.SupportTicketsInLastSixMonthsHandlers)
+	//r.HandleFunc("/aws/support/open", awsHandler.SupportOpenTicketsHandler)
 }
