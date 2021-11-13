@@ -39,10 +39,10 @@
 
               <div class="mx-8">
                 <h4 class="text-2xl font-semibold text-gray-700">
-                  {{ openedTicket.length }} Open Tickets
+                  {{ openedTicket }} Open Tickets
                 </h4>
                 <p class="ext-2xl font-semibold text-gray-700">
-                  {{ resolvedTicket.length }} Resolved Tickets
+                  {{ resolvedTicket }} Resolved Tickets
                 </p>
                 <div class="text-gray-500">Support</div>
               </div>
@@ -107,7 +107,7 @@
               </thead>
 
               <tbody class="bg-white">
-                <tr v-for="item in groupsCostHistory" :key="item.key">
+                <tr v-for="item in groupsCostHistory" :key="item.name">
                   <td
                     class="
                       px-6
@@ -127,7 +127,7 @@
                         <div
                           class="text-sm leading-5 font-medium text-gray-900"
                         >
-                          {{ item.key }}
+                          {{ item.name }}
                         </div>
                       </div>
                     </div>
@@ -143,7 +143,7 @@
                   >
                     <div class="text-sm leading-5 text-gray-900">
                       <money-format
-                        :value="item.amount"
+                        :value="item.cost"
                         locale="en"
                         currency-code="USD"
                         subunits-value="true"
@@ -170,30 +170,52 @@ export default {
   },
   data() {
     return {
-      currentCost: 'loading',
-      openedTicket: 'loading',
-      resolvedTicket: 'loading',
-      costHistory: 'loading',
+      openedTicket: '0',
+      resolvedTicket: '0',
+      currentCost: '0',
+      costHistory: [{ groups: [] }],
     }
   },
   async created() {
-    this.currentCost = await this.$axios.$get('/aws/cost/current', {
-      progress: false,
-    })
-    this.openedTicket = await this.$axios.$get('/aws/support/open', {
-      progress: false,
-    })
-    this.resolvedTicket = await this.$axios.$get('/aws/support/history', {
-      progress: false,
-    })
+    this.openedTicket = await this.$axios
+      .$get('/aws/support/open', {
+        progress: false,
+      })
+      .then((res) => {
+        if (res.error) {
+          return 0
+        }
+        return res
+      })
+    this.resolvedTicket = await this.$axios
+      .$get('/aws/support/history', {
+        progress: false,
+      })
+      .then((res) => {
+        if (res.error) {
+          return 0
+        }
+        return res
+      })
     this.costHistory = await this.$axios.$get('/aws/cost/history', {
+      progress: false,
+    })
+    this.currentCost = await this.$axios.$get('/aws/cost/current', {
       progress: false,
     })
   },
   computed: {
     groupsCostHistory: function () {
-      return this.costHistory[this.costHistory.length - 1].groups
-      // return data.find( item => item.amount > 0);
+      this.mostUsedServices = []
+      this.costHistory[this.costHistory.length - 1].groups
+        .slice(0, 4)
+        .forEach((service) => {
+          this.mostUsedServices.push({
+            name: service.key,
+            cost: service.amount,
+          })
+        })
+      return this.mostUsedServices
     },
   },
 }

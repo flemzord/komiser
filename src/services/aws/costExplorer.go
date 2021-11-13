@@ -24,6 +24,14 @@ func (aws AWS) DescribeCostAndUsage(cfg awsClient.Config) (Bill, error) {
 			Start: &start,
 			End:   &end,
 		},
+		//Filter: []costexplorer.Expression{
+		//	Dimensions: []costexplorer.Expression{
+		//        {
+		//            Key:    awsClient.String("RECORD_TYPE"),
+		//            Values: []string{"Usage"},
+		//        },
+		//    },
+		//},
 		GroupBy: []costexplorer.GroupDefinition{
 			costexplorer.GroupDefinition{
 				Key:  awsClient.String("SERVICE"),

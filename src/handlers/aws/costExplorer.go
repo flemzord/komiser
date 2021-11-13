@@ -12,7 +12,7 @@ func (handler *AWSHandler) CurrentCostHandler(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(fiber.Map{"error": "ce:GetCostAndUsage is missing"})
 	} else {
-		return c.JSON(response)
+		return c.JSON(response.Total)
 
 	}
 }
@@ -24,7 +24,7 @@ func (handler *AWSHandler) CostAndUsageHandler(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(fiber.Map{"error": "ce:GetCostAndUsage is missing"})
 	} else {
-		return c.JSON(response.Total)
+		return c.JSON(response.History)
 
 	}
 }
