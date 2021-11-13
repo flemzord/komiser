@@ -27,7 +27,7 @@ docker run -d -p 3000:3000 -e AWS_ACCESS_KEY_ID="" -e AWS_SECRET_ACCESS_KEY="" -
 
 ### AWS
 
-* Create an IAM user with the following IAM [policy](https://raw.githubusercontent.com/flemzord/komiser/master/policy.json):
+* Create an IAM user with the following IAM [policy](https://raw.githubusercontent.com/flemzord/komiser/main/policy.json):
 
 ```
 wget https://komiser.s3.amazonaws.com/policy.json
