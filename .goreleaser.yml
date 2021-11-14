@@ -1,5 +1,10 @@
+project_name: komiser
 env:
   - GO111MODULE=on
+  - GOPROXY=https://proxy.golang.org
+before:
+  hooks:
+    - go mod download
 
 builds:
   - env:
@@ -12,6 +17,11 @@ builds:
       - amd64
       - arm
       - arm64
+    main: ./cmd/komiser
+    ldflags:
+      - -X github.com/flemzord/komiser/cmd.BuildDate={{ .Date }}
+      - -X github.com/flemzord/komiser/cmd.Version={{ .Version }}
+      - -X github.com/flemzord/komiser/cmd.Commit={{ .ShortCommit }}
     mod_timestamp: '{{ .CommitTimestamp }}'
 
 checksum:
