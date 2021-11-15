@@ -14,8 +14,7 @@
 
 ### Homebrew
  ````
- brew tap flemzord/komiser https://github.com/flemzord/komiser
- brew install flemzord/komiser/komiser
+ brew install flemzord/tap/komiser
  ````
 ### Docker:
 

@@ -26,9 +26,12 @@ builds:
 
 checksum:
   name_template: 'checksums.txt'
+
 snapshot:
   name_template: "{{ .Tag }}"
+
 changelog:
+  use: github
   sort: asc
   filters:
     exclude:
@@ -75,10 +78,13 @@ docker_manifests:
       - ghcr.io/flemzord/komiser:{{ .Version }}-arm64
 
 brews:
-  - name: komiser
-    goarm: 6
-    tap:
+  - tap:
       owner: flemzord
-      name: komiser
+      name: homebrew-tap
+    name: komiser
+    folder: Formula
+    skip_upload: false
+    test: |
+      system "#{bin}/komiser version"
     install: |
       bin.install "komiser"

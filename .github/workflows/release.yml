@@ -4,25 +4,12 @@ on:
 
 name: Release
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
-      - name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      - uses: lakto/gren-action@v2.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          options: '--tags=${{ steps.get_version.outputs.VERSION }} --override'
   Build:
     name: 'Build'
     runs-on: ubuntu-latest
-    env:
-      working-directory: "./dashboard/"
+    defaults:
+      run:
+        working-directory: "./dashboard/"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -32,10 +19,12 @@ jobs:
       - run: yarn install
       - run: yarn run build
       - run: yarn run generate
+      - run: ls -a ./dist
       - uses: actions/upload-artifact@v2
         with:
           name: dashboard-dist
-          path: ./**
+          path: ./dashboard/dist/**
+          retention-days: 2
   GoReleaser:
     name: 'GoReleaser'
     runs-on: ubuntu-latest
