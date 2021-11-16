@@ -172,7 +172,7 @@ export default {
     return {
       openedTicket: '0',
       resolvedTicket: '0',
-      currentCost: '0',
+      currentCost: 0,
       costHistory: [{ groups: [] }],
     }
   },
