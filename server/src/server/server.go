@@ -1,13 +1,14 @@
 package server
 
 import (
+	"log"
+
 	. "github.com/flemzord/komiser/src/handlers/aws"
 	"github.com/flemzord/komiser/src/libs"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/spf13/cobra"
-	"log"
 )
 
 func Server(cmd *cobra.Command, args []string) {
@@ -21,7 +22,7 @@ func Server(cmd *cobra.Command, args []string) {
 		app.Use(cache.New())
 	}
 
-	app.Static("/", "./dashboard/dist")
+	app.Static("/", "./../dashboard/dist")
 
 	aws := app.Group("/aws")
 

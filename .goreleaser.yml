@@ -17,7 +17,7 @@ builds:
       - amd64
       - arm
       - arm64
-    main: ./cmd/komiser
+    main: ./server
     ldflags:
       - -X github.com/flemzord/komiser/cmd.BuildDate={{ .Date }}
       - -X github.com/flemzord/komiser/cmd.Version={{ .Version }}

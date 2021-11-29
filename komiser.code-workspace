@@ -1,13 +1,16 @@
 {
 	"folders": [
 		{
-      "name": "Komiser",
-			"exclude": "dashboard",
-			"path": "."
+      "name": "Server",
+			"path": "server"
 		},
 		{
       "name": "Dashboard",
 			"path": "dashboard"
+		},
+		{
+      "name": "All",
+			"path": "."
 		}
 	],
 	"settings": {
