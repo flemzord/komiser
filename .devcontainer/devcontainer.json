@@ -1,10 +1,10 @@
 {
-  "name": "Go",
+  "name": "Komiser",
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
       "VARIANT": "1.16",
-      "NODE_VERSION": "none"
+      "NODE_VERSION": "14"
     }
   },
   "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
