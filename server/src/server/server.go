@@ -35,7 +35,4 @@ func Server(cmd *cobra.Command, args []string) {
 	support.Get("open", awsHandler.SupportOpenTicketsHandler)
 
 	log.Fatal(app.Listen(port))
-
-	//r.HandleFunc("/aws/support/history", awsHandler.SupportTicketsInLastSixMonthsHandlers)
-	//r.HandleFunc("/aws/support/open", awsHandler.SupportOpenTicketsHandler)
 }
