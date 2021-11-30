@@ -2,9 +2,6 @@ project_name: komiser
 env:
   - GO111MODULE=on
   - GOPROXY=https://proxy.golang.org
-before:
-  hooks:
-    - cd ./server && go mod download
 
 builds:
   - env:

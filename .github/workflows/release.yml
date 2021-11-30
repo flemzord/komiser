@@ -42,6 +42,8 @@ jobs:
       - uses: actions/setup-go@v2
         with:
           go-version: '^1.16' # The Go version to download (if necessary) and use.
+      - run: go mod download
+        working-directory: "./server/"
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
