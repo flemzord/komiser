@@ -4,7 +4,7 @@ env:
   - GOPROXY=https://proxy.golang.org
 before:
   hooks:
-    - go mod download
+    - cd ./server && go mod download
 
 builds:
   - env:
@@ -17,7 +17,8 @@ builds:
       - amd64
       - arm
       - arm64
-    main: ./server
+    dir: ./server/
+    main: ./
     ldflags:
       - -X github.com/flemzord/komiser/cmd.BuildDate={{ .Date }}
       - -X github.com/flemzord/komiser/cmd.Version={{ .Version }}
